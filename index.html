@@ -1,0 +1,3925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>NAGESH PANEL STORE — Premium Game Mods</title>
+<style>
+/* ============ RESET ============ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+  --bg-primary: #030014;
+  --bg-secondary: #0a0520;
+  --bg-card: rgba(20, 15, 45, 0.5);
+  --border: rgba(139, 92, 246, 0.15);
+  --border-hover: rgba(139, 92, 246, 0.45);
+  --purple: #8b5cf6;
+  --purple-light: #a78bfa;
+  --purple-glow: rgba(139, 92, 246, 0.5);
+  --pink: #ec4899;
+  --cyan: #06b6d4;
+  --gold: #fbbf24;
+  --green: #10b981;
+  --red: #ef4444;
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+  position: relative;
+}
+
+/* ============ LOADING SCREEN ============ */
+.loader {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, #0a0520 0%, #030014 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader-content {
+  text-align: center;
+  padding: 20px;
+}
+
+.loader-logo {
+  font-size: 72px;
+  margin-bottom: 16px;
+  animation: logoBounce 1.5s ease-in-out infinite;
+}
+
+@keyframes logoBounce {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-15px) scale(1.08); }
+}
+
+.loader-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 32px;
+  letter-spacing: -1px;
+  line-height: 1.2;
+}
+
+.loader-title span {
+  background: linear-gradient(135deg, var(--purple-light), var(--pink), var(--cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.loader-spinner {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 26px;
+}
+
+.spinner-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: var(--purple);
+  animation: spin 1.2s linear infinite;
+}
+
+.spinner-ring:nth-child(2) {
+  inset: 8px;
+  border-top-color: var(--pink);
+  animation-duration: 1.6s;
+  animation-direction: reverse;
+}
+
+.spinner-ring:nth-child(3) {
+  inset: 16px;
+  border-top-color: var(--cyan);
+  animation-duration: 0.9s;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loader-text {
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+
+.loader-progress {
+  width: 240px;
+  max-width: 80vw;
+  height: 4px;
+  background: rgba(139, 92, 246, 0.1);
+  border-radius: 100px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.loader-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--purple), var(--pink), var(--cyan));
+  border-radius: 100px;
+  transition: width 0.3s ease;
+}
+
+/* ============ WEBSITE ============ */
+.website {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.website.visible {
+  opacity: 1;
+}
+
+.bg-effects {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(130px);
+  opacity: 0.35;
+}
+
+.bg-orb-1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, var(--purple), transparent 70%);
+  top: -200px; left: -200px;
+}
+
+.bg-orb-2 {
+  width: 450px; height: 450px;
+  background: radial-gradient(circle, var(--pink), transparent 70%);
+  bottom: -150px; right: -150px;
+  opacity: 0.25;
+}
+
+.bg-orb-3 {
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, var(--cyan), transparent 70%);
+  top: 40%; left: 50%;
+  opacity: 0.15;
+}
+
+.bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(139, 92, 246, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 92, 246, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+}
+
+.announcement {
+  background: linear-gradient(90deg, var(--purple), var(--pink));
+  text-align: center;
+  padding: 9px 16px;
+  font-size: 13px;
+  color: #fff;
+  font-weight: 500;
+  position: relative;
+  z-index: 10;
+}
+
+.announcement strong {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 2px 10px;
+  border-radius: 6px;
+  font-family: 'Space Grotesk', monospace;
+  letter-spacing: 1px;
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(3, 0, 20, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #fff;
+  min-width: 0;
+  flex-shrink: 1;
+}
+
+.logo-icon {
+  font-size: 20px;
+  background: linear-gradient(135deg, var(--purple), var(--pink));
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 25px var(--purple-glow);
+}
+
+.logo-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.logo-accent {
+  background: linear-gradient(135deg, var(--purple-light), var(--pink), var(--cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.nav-links {
+  display: none;
+  gap: 28px;
+}
+
+.nav-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--purple-light); }
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.track-btn, .admin-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  color: #fff;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.track-btn:hover, .admin-btn:hover {
+  background: rgba(139, 92, 246, 0.2);
+}
+
+.cart-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, var(--purple), var(--purple-light));
+  color: #fff;
+  border: none;
+  padding: 9px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  box-shadow: 0 0 20px var(--purple-glow);
+}
+
+.cart-count {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  padding: 1px 7px;
+  font-size: 11px;
+  min-width: 20px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.hero {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 20px 40px;
+  text-align: center;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid var(--border-hover);
+  padding: 7px 16px;
+  border-radius: 100px;
+  font-size: 13px;
+  color: var(--purple-light);
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+
+.badge-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--green);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--green);
+}
+
+.hero-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 38px;
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -1.5px;
+  margin-bottom: 20px;
+}
+
+.hero-line-1 { display: block; }
+
+.hero-line-2 {
+  display: block;
+  background: linear-gradient(135deg, var(--purple-light) 0%, var(--pink) 50%, var(--cyan) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--purple-light), var(--pink), var(--cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-subtitle {
+  color: var(--text-secondary);
+  font-size: 15px;
+  max-width: 580px;
+  margin: 0 auto 32px;
+  line-height: 1.7;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, var(--purple), var(--pink));
+  color: #fff;
+  padding: 13px 26px;
+  border-radius: 14px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 8px 30px var(--purple-glow);
+  transition: transform 0.2s;
+}
+
+.btn-primary:hover { transform: translateY(-2px); }
+.btn-primary:active { transform: scale(0.97); }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  background: rgba(139, 92, 246, 0.15);
+  border-color: var(--border-hover);
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 22px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.stat { text-align: center; flex: 1; min-width: 80px; }
+
+.stat-icon { font-size: 18px; margin-bottom: 4px; }
+
+.stat-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--purple-light), var(--pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 32px;
+  background: var(--border);
+}
+
+.trust-bar {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.trust-item span { font-size: 17px; }
+
+.section-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 0 20px;
+}
+
+.section-tag {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--purple-light);
+  background: rgba(139, 92, 246, 0.1);
+  padding: 7px 16px;
+  border-radius: 100px;
+  margin-bottom: 16px;
+  border: 1px solid var(--border-hover);
+}
+
+.section-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin-bottom: 10px;
+}
+
+.section-subtitle {
+  color: var(--text-secondary);
+  font-size: 14px;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.features {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 20px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.feature-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 24px;
+  backdrop-filter: blur(20px);
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent, var(--purple));
+}
+
+.feature-icon-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.15));
+  border: 1px solid var(--border-hover);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.feature-icon { font-size: 24px; }
+
+.feature-card h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.feature-card p {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.products-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px 70px;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.filter-btn {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  padding: 9px 18px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.filter-btn:hover {
+  color: #fff;
+  border-color: var(--border-hover);
+  background: rgba(139, 92, 246, 0.1);
+}
+
+.filter-btn.active {
+  background: linear-gradient(135deg, var(--purple), var(--pink));
+  border-color: transparent;
+  color: #fff;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.empty-products {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  background: var(--bg-card);
+  border: 1px dashed var(--border-hover);
+  border-radius: 24px;
+}
+
+.empty-products-icon { font-size: 60px; margin-bottom: 14px; }
+
+.empty-products h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.empty-products p {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+.empty-products-tag {
+  display: inline-block;
+  background: rgba(139, 92, 246, 0.15);
+  border: 1px solid var(--border-hover);
+  color: var(--purple-light);
+  font-size: 12px;
+  padding: 6px 16px;
+  border-radius: 100px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.product-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  transition: transform 0.3s, border-color 0.3s;
+  cursor: pointer;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--border-hover);
+}
+
+.product-image {
+  position: relative;
+  aspect-ratio: 16/10;
+  overflow: hidden;
+  background: #0a0520;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(3, 0, 20, 0.95) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-hover);
+  color: var(--purple-light);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 100px;
+  z-index: 2;
+}
+
+.product-info { padding: 18px; }
+
+.product-info h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.product-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.product-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.rating { color: var(--gold); font-weight: 600; }
+
+.product-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+.price-wrap { display: flex; flex-direction: column; }
+
+.price {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.price-from { font-size: 11px; color: var(--text-muted); }
+
+.view-btn {
+  background: linear-gradient(135deg, var(--purple), var(--purple-light));
+  color: #fff;
+  border: none;
+  padding: 9px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+}
+
+.testimonials {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 50px 20px;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.testimonial-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 24px;
+  backdrop-filter: blur(20px);
+}
+
+.stars {
+  color: var(--gold);
+  font-size: 15px;
+  margin-bottom: 12px;
+  letter-spacing: 3px;
+}
+
+.testimonial-card > p {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-bottom: 18px;
+  font-style: italic;
+}
+
+.testimonial-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--purple), var(--pink));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #fff;
+}
+
+.avatar-2 { background: linear-gradient(135deg, var(--cyan), var(--purple)); }
+.avatar-3 { background: linear-gradient(135deg, var(--gold), var(--pink)); }
+
+.user-name { font-weight: 600; font-size: 14px; }
+.user-tag { font-size: 12px; color: var(--text-muted); }
+
+.footer {
+  background: rgba(10, 5, 32, 0.6);
+  border-top: 1px solid var(--border);
+  backdrop-filter: blur(20px);
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 44px 20px 26px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+}
+
+.footer-brand p {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-top: 12px;
+}
+
+.footer-tg {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  color: var(--purple-light);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid var(--border-hover);
+  padding: 8px 16px;
+  border-radius: 100px;
+}
+
+.footer-links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.footer-col h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.footer-col a {
+  display: block;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.footer-col a:hover { color: var(--purple-light); }
+
+.footer-bottom {
+  border-top: 1px solid var(--border);
+  padding: 18px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+/* ============ MODALS ============ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 450;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.modal-overlay.active { display: flex !important; }
+
+#productModal.active { z-index: 450; }
+#checkoutModal.active { z-index: 460; }
+#trackModal.active { z-index: 470; }
+#successModal.active { z-index: 480; }
+#adminLoginModal.active { z-index: 550; }
+#addModModal.active { z-index: 600; }
+#deliverKeyModal.active { z-index: 700; }
+
+.modal {
+  background: linear-gradient(135deg, #1a1030 0%, #0a0520 100%);
+  border: 1px solid var(--border-hover);
+  border-radius: 24px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 40px 100px rgba(139, 92, 246, 0.3);
+}
+
+.small-modal { max-width: 460px; }
+
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--border);
+  color: #fff;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 15px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-close:hover {
+  background: rgba(239, 68, 68, 0.3);
+  border-color: var(--red);
+}
+
+.modal-image {
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  border-radius: 24px 24px 0 0;
+  background: #0a0520;
+}
+
+.modal-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal-body { padding: 26px; }
+
+.modal-body h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+.modal-sub {
+  color: var(--text-secondary);
+  font-size: 13px;
+  margin-bottom: 22px;
+}
+
+.badge-modal {
+  display: inline-block;
+  background: rgba(139, 92, 246, 0.2);
+  border: 1px solid var(--border-hover);
+  color: var(--purple-light);
+  font-size: 12px;
+  padding: 5px 14px;
+  border-radius: 100px;
+  margin-bottom: 14px;
+  font-weight: 600;
+}
+
+.modal-desc {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin: 16px 0 24px;
+  line-height: 1.7;
+}
+
+.duration-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
+  margin-bottom: 14px;
+}
+
+.duration-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(115px, 1fr));
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.duration-option {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.duration-option:hover {
+  border-color: var(--border-hover);
+  background: rgba(139, 92, 246, 0.08);
+}
+
+.duration-option.active {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(236, 72, 153, 0.2));
+  border-color: var(--purple);
+  box-shadow: 0 0 20px var(--purple-glow);
+}
+
+.duration-name {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.duration-price {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--purple-light);
+}
+
+.modal-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  gap: 14px;
+}
+
+.full-width {
+  width: 100%;
+  justify-content: center;
+}
+
+.login-icon {
+  font-size: 44px;
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.form-group { margin-bottom: 14px; }
+
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  color: #fff;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--purple);
+  box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15);
+}
+
+.form-hint {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 5px;
+}
+
+.image-upload-area { width: 100%; }
+
+.upload-placeholder {
+  border: 2px dashed var(--border-hover);
+  border-radius: 16px;
+  padding: 26px 16px;
+  text-align: center;
+  cursor: pointer;
+  background: rgba(139, 92, 246, 0.05);
+}
+
+.upload-placeholder:hover {
+  background: rgba(139, 92, 246, 0.12);
+  border-color: var(--purple);
+}
+
+.upload-icon { font-size: 38px; margin-bottom: 8px; }
+
+.upload-placeholder p {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.upload-placeholder span {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.upload-preview {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border-hover);
+}
+
+.upload-preview img {
+  width: 100%;
+  aspect-ratio: 16/10;
+  object-fit: cover;
+  display: block;
+}
+
+.remove-img-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(239, 68, 68, 0.9);
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+}
+
+.duration-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.duration-row { display: flex; gap: 10px; }
+
+.duration-row input { flex: 1; }
+
+.duration-row input:disabled {
+  background: rgba(139, 92, 246, 0.1);
+  color: var(--purple-light);
+  font-weight: 700;
+  text-align: center;
+  max-width: 110px;
+}
+
+.qr-section {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.qr-section h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
+  margin-bottom: 14px;
+  color: var(--purple-light);
+}
+
+.qr-wrap {
+  background: #fff;
+  padding: 12px;
+  border-radius: 14px;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.qr-wrap img {
+  width: 190px;
+  height: 190px;
+  display: block;
+}
+
+.qr-amount { font-size: 14px; color: var(--text-secondary); }
+
+.qr-amount strong {
+  color: var(--gold);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px;
+}
+
+.cart-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  z-index: 250;
+  display: none;
+}
+
+.cart-overlay.active { display: block; }
+
+.cart-sidebar {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 380px;
+  max-width: 92vw;
+  height: 100vh;
+  background: linear-gradient(180deg, #0f0820 0%, #050015 100%);
+  border-left: 1px solid var(--border);
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  transition: right 0.3s ease;
+}
+
+.cart-sidebar.open { right: 0; }
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.cart-header h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 17px;
+}
+
+.close-btn {
+  background: none;
+  color: #fff;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  padding: 4px 10px;
+  border-radius: 8px;
+}
+
+.cart-items {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px;
+}
+
+.cart-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.cart-item img {
+  width: 52px;
+  height: 52px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.cart-item-info { flex: 1; min-width: 0; }
+
+.cart-item-info h4 {
+  font-size: 13px;
+  margin-bottom: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cart-item-info p {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 3px;
+}
+
+.cart-item-price {
+  color: var(--purple-light) !important;
+  font-weight: 700;
+}
+
+.remove-btn {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+
+.cart-footer {
+  padding: 18px;
+  border-top: 1px solid var(--border);
+}
+
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.cart-total-price {
+  color: var(--purple-light);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 19px;
+}
+
+.checkout-btn {
+  width: 100%;
+  padding: 13px;
+  font-size: 15px;
+  background: linear-gradient(135deg, var(--purple), var(--pink));
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 600;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.empty-cart {
+  text-align: center;
+  padding: 44px 20px;
+}
+
+.empty-icon { font-size: 50px; margin-bottom: 12px; opacity: 0.6; }
+
+.empty-cart p { color: var(--text-muted); font-size: 14px; }
+
+.empty-sub { font-size: 12px !important; margin-top: 6px; }
+
+.success-body { text-align: center; }
+
+.success-icon {
+  font-size: 60px;
+  margin-bottom: 12px;
+}
+
+.order-id-display {
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid var(--border-hover);
+  border-radius: 16px;
+  padding: 14px;
+  margin-bottom: 18px;
+}
+
+.order-id-display label {
+  display: block;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.order-id-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 10px 12px;
+  border-radius: 10px;
+}
+
+#successOrderId {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--purple-light);
+  letter-spacing: 1px;
+  word-break: break-all;
+}
+
+.copy-btn {
+  background: linear-gradient(135deg, var(--purple), var(--pink));
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.success-info {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 14px;
+  margin-bottom: 18px;
+  text-align: left;
+}
+
+.success-info p {
+  color: var(--text-secondary);
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.success-info p:last-child { margin-bottom: 0; }
+
+.success-info strong { color: var(--purple-light); }
+
+.track-result { margin-top: 18px; }
+
+.track-card {
+  background: rgba(139, 92, 246, 0.08);
+  border: 1px solid var(--border-hover);
+  border-radius: 16px;
+  padding: 16px;
+  text-align: left;
+}
+
+.track-status {
+  display: inline-block;
+  font-size: 11px;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.track-status.pending {
+  background: rgba(251, 191, 36, 0.15);
+  color: var(--gold);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+.track-status.completed {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--green);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.track-status.rejected {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--red);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.track-info p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.track-info strong { color: #fff; }
+
+.key-box {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(139, 92, 246, 0.1));
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 12px;
+  padding: 14px;
+  margin-top: 14px;
+  text-align: center;
+}
+
+.key-box label {
+  display: block;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.key-value {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--green);
+  word-break: break-all;
+  margin-bottom: 10px;
+}
+
+.key-download {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--purple), var(--pink));
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.admin-panel {
+  position: fixed;
+  inset: 0;
+  background: #030014;
+  z-index: 500;
+  display: none;
+  overflow-y: auto;
+}
+
+.admin-panel.active { display: block; }
+
+.admin-header {
+  position: sticky;
+  top: 0;
+  background: rgba(3, 0, 20, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 20px;
+  z-index: 10;
+}
+
+.admin-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.admin-header h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
+}
+
+.admin-header-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.admin-nav-btn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: inherit;
+}
+
+.admin-nav-btn.active {
+  background: linear-gradient(135deg, var(--purple), var(--pink));
+  color: #fff;
+  border-color: transparent;
+}
+
+.admin-logout {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #fca5a5;
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+}
+
+.admin-tab {
+  display: none;
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.admin-tab.active { display: block; }
+
+.admin-tab h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 19px;
+  margin-bottom: 14px;
+}
+
+.admin-hint {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.admin-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.admin-orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.admin-order-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 18px;
+}
+
+.order-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.order-card-id {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--purple-light);
+}
+
+.order-card-date {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.order-card-body {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.order-card-body p {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.order-card-body strong {
+  color: #fff;
+  display: inline-block;
+  min-width: 90px;
+}
+
+.order-card-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 10px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 12px;
+}
+
+.order-card-items span {
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid var(--border-hover);
+  color: var(--purple-light);
+  font-size: 11px;
+  padding: 4px 12px;
+  border-radius: 100px;
+}
+
+.order-card-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.order-btn {
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  border: none;
+  transition: transform 0.2s;
+}
+
+.order-btn:hover { transform: translateY(-2px); }
+
+.btn-deliver {
+  background: linear-gradient(135deg, var(--green), #059669);
+  color: #fff;
+}
+
+.btn-view {
+  background: rgba(139, 92, 246, 0.2);
+  color: var(--purple-light);
+  border: 1px solid var(--border-hover);
+}
+
+.btn-reject {
+  background: rgba(239, 68, 68, 0.15);
+  color: #fca5a5;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.key-delivered-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: var(--green);
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  word-break: break-all;
+  max-width: 100%;
+}
+
+.admin-mods-list { display: flex; flex-direction: column; gap: 10px; }
+
+.admin-mod-item {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 14px;
+}
+
+.admin-mod-item img {
+  width: 65px;
+  height: 65px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.admin-mod-info { flex: 1; min-width: 0; }
+
+.admin-mod-info h4 {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.admin-mod-info p {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.admin-mod-prices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.admin-mod-prices span {
+  background: rgba(139, 92, 246, 0.15);
+  border: 1px solid var(--border-hover);
+  color: var(--purple-light);
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.admin-mod-actions { display: flex; gap: 6px; }
+
+.edit-btn, .delete-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.edit-btn:hover { background: rgba(139, 92, 246, 0.2); }
+.delete-btn:hover { background: rgba(239, 68, 68, 0.2); }
+
+.qr-preview {
+  text-align: center;
+  padding: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  margin-bottom: 18px;
+}
+
+.qr-preview img {
+  max-width: 200px;
+  background: #fff;
+  padding: 12px;
+  border-radius: 14px;
+}
+
+.order-detail-box {
+  background: rgba(139, 92, 246, 0.08);
+  border: 1px solid var(--border-hover);
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 16px;
+}
+
+.order-detail-box p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.order-detail-box p:last-child { margin-bottom: 0; }
+
+.order-detail-box strong {
+  color: var(--purple-light);
+}
+
+.deliver-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(120px);
+  background: linear-gradient(135deg, var(--green), #059669);
+  color: #fff;
+  padding: 14px 22px;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 900;
+  transition: transform 0.3s ease;
+  box-shadow: 0 10px 40px rgba(16, 185, 129, 0.4);
+  max-width: 90vw;
+  text-align: center;
+}
+
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+@media (min-width: 640px) {
+  .features-grid { grid-template-columns: repeat(2, 1fr); }
+  .products-grid { grid-template-columns: repeat(2, 1fr); }
+  .testimonials-grid { grid-template-columns: repeat(3, 1fr); }
+  .nav-links { display: flex; }
+  .logo-text { font-size: 18px; }
+  .logo-icon { width: 44px; height: 44px; font-size: 22px; }
+  .hero-title { font-size: 52px; }
+  .section-title { font-size: 36px; }
+  .footer-content { grid-template-columns: 2fr 1fr; }
+  .loader-title { font-size: 42px; }
+}
+
+@media (min-width: 1024px) {
+  .features-grid { grid-template-columns: repeat(4, 1fr); }
+  .products-grid { grid-template-columns: repeat(3, 1fr); }
+  .hero-title { font-size: 62px; }
+  .section-title { font-size: 42px; }
+}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+
+/* ============ PREMIUM THEME ============ */
+:root{
+  --bg-primary:#05060b;--bg-secondary:#0a0c15;--bg-card:rgba(18,20,32,.72);
+  --border:rgba(255,255,255,.08);--border-hover:rgba(230,185,77,.5);
+  --purple:#7c6cf0;--purple-light:#aaa0ff;--purple-glow:rgba(124,108,240,.35);
+  --pink:#e6b94d;--gold:#e6b94d;--cyan:#5eead4;
+  --text-secondary:#a8abb8;--text-muted:#737687;
+  --logo:url("data:image/jpeg;base64,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Dwb23LBk1gIICIAoiIAggAICIqiISqAAIIAgAiqIoIACAAAAsCKKxBQAQAFFBAFBARQFAgFFAAEZAigCgoCigKqiCgCgKK+mK+3z3iem0sZhspeYl1I1/FqMGeeV4mlNVbuy7cuL412a5r9sw7q55nNW8+fdo6ynDNq/lvanymWVfDnzx3lrM3M+2Dv+DGzdidLU6mKajFaY4o0+LDSlO6160iY3/wBUy11r2mHZkyxGWtp/thzdVntkta9rTa9pm+S89ZltrXUacWXJa0za3mXwVoFEAEQBREkBARABABREBUBAAEEAQAQUFBAAQAAAARRTQAIAAAEKACggICqqACigAAoKqICwCgKKAAqqIKAKAqD647b8v1SYbqWffWzxcVvGYyfON/3Y1bc/fctRm5mxpY3385iGNm/CanJva1vzWmYIhMtvu21pZOdFAARAFEQBAEEABARBQCVSQQBJEAAQCFQUAEABAAAAUYqMgEBAAAAhQAUAGICqACgCgACMgFACAUAFUABVVABQBdrE7IsW1LbvzxzPl+m7D3dNvuptqNjlbOm5VmfOfows6cXasy18lt5/SGUNFrblirHYIgACiIAgCACAgIgoAISqAAIIAgAgoKCAAgAAKACjEGQAADEAAAFBQAQEUUVABRQAUAFUQQBQUBdxQABVUBABQbeltE0vTv4ZtXzYS6cVt0mrU3Zuds8UVxR4234fmw13dG+nF+5arNzAACgCIgACACAgAIiqIgqAAIAIAgAgoKCAAgAKAACjEGTEGQAMQAAAUAFBARRRUAF3FAAIARkAogKACgKAKAAKAqoLS0xO8dY6CxOkEWbTO2/dHDHkaWZ2giKACIAACIAAAIAggKSqAgACCAIABCoKACAgAAKACgDEGTEFBQQEAAAFURQAQEUBQAUUAARYBQFAAAFAAUAUAAAAAAAAAAEQAAAQAERVEAQVAAEkARAABBQUAEBAAUEBYBQBEFAAUEBAAABVAEUAGKiioAEAooAAAjIBQAA2CiggAooABuBuBuBuAIgAAAAAmwARBVBBBUAAAQQBABBQAUEABAAUEBQUAYgyYgoKACAgAAKAAEqCAKIKACgCgACAKCgKIAKoim4AAAAAAAAAG4AgAAIKqAqCCCoAAAggCACACgqCKAIAACggMgABiDJEBRQAQEAAACFABQAQAEVQAWBQAAAUQBQFUEQBFUQUUAAAAABAUQAAERVAEASRUAAAQQABABBQUAEABAAAAUAAAYqMkAAAABAAAAUUEAVAUYgqiCgACqAAAKIAoACgCAAoAAAAAAAIKqIAKIgCgAIAAggACKCIKKqIAigCAAAAAoAAAgKgAAMgAQAEAABRQQBQQAEUBQAAUUAAAFEAAUABVAAQAAFARAAEAAF0AgAACACAAJIACoCKoIqAAIAAACgoAAAxBkgAAKAACAgAAAKACgAgACiCgAAsCgAAABpQBAAVRAEABQAAQBQRQEAAAAQAQABAAFhFUBERVBEAABQQFABQAAQTZRUBQEBQBAAQAAAAFFBBBVEBAFAUAADcFFAJAAAAFNzQbgBs3Q2bhsU2AbmgEAAAAAAQQAABABBQAUEFBEAAAAABQUAEBQBAVAAEBRQQAAAEAAABQAUAEAAUAQUAADcVdwAAAAAAAAAAAAAAAANwQQAABAAAFhACVQRQABAAAAAUFAABAUAYgqCgAAKCAoAICAAAAAoAKigiKAIAoIooAABuBuC7igAAAAAAAAAAJuAIAAAAgACoAAKgKIACAAAAAoKAgKICggKIIIqqCAAoICgAAgAIAAACigCIoIAoAgAAooAAAABuC7im4AG4G4G4IIAAAAAgAAAgooIoAIACAAAAAoAAKACAAAAoxBkxBkCAgKAACggAAAIAAACgAIAKoAgIACqAqAAAAAAAAAAAAACAAACACgAqKCIoAAgAAAAKAAACgAgAAAKMQZIBsBAUEABQAQFAAEAAAABQAAAUAAEAAURBQRQABRUAAAEAAAAAAVAAFVAAERQABAAAAAAUAAAAAAQFAAUYgySAAVBFABAUAEBQAABAAAAAUAAAFFEAQVUEAAQABRQRAAAAUAAVAAABRRAERQFBAEAAAABQAUEAAAAAEEUUAUYgyQAAAAAAAAAAAAAEAAAAABQAAEAFUEABRAAAAAAAAAAEFUAEUEAQBQABAAAAAAAUFABAAAAAAAAAUQFQAAAAAAAAAAAAAAAEAAAAABQAAAEAFAAUBRAAAAEAAAAARVBAAAEAAAAABQAAAAAAAAUBABFAAFGIMkAARAUAUAAEFBFAAAAAAAAEAAAABQQVRABAFBAAAAAAAFBFAUAEQAAAAAAAAFAAAABQAAAARAUAAAUAYgyAQAABAAUAUAAAEBQAAQAAAEAAAAABQAAAAAAEIAFAADYICgAgAAAAAAKCAAoAKACAoAAAIAAAiAqgACAqAAqiAAIACgCgIIoAoAAIAAAAACAAAAAAAAAAAAAoIAAAAAAACgAgAAKAACggKACAAAoAIAAAAgAKKiAoACAKACAAoAAAgKAACggAAKACAAgAKAACAAAAAAAoIAAAAAAACgAAAaAAABQRBQFEAAEBVQFEAAAAQBVEBQARBEUBVAAAAAAAAAABQAAEAABRNAaAABAAAAUAAAAAEAAAAABQNAAAAoAIAAAACoCiACAogCAAooIAqgCAAoJIIiiAooAAAAAAAACAoAAAAAKAACAAAAgAAKACAoIAAAACgAoIAAACgAgAAAAAAAAAAAAAAKgAAAACggCAAKKACAAAoIAAAAAAAAACggAKCAAAAAAAAAoICggAAAAAAAAAKCAAAAAAAAAAAAAAAqKCAAAgLAAAAAAoAAgKCCQoogAKAAIJAKCAoCoIoAoIAICqCAAIACigACSgogqoCoACgAACIKgKACgACIKAAAAoAACAKCAAAgP/2Q==");
+}
+body{font-feature-settings:"cv11","ss01";-webkit-font-smoothing:antialiased}
+.hero-title,.section-title,.logo-text,.loader-title,.product-info h3,.feature-card h3,.modal-body h2,.stat-num{font-family:'Space Grotesk','Inter',sans-serif;letter-spacing:-.025em}
+.logo-icon,.loader-logo{font-size:0!important;color:transparent;background:var(--logo) center/cover no-repeat;border-radius:50%;box-shadow:0 0 0 1px rgba(230,185,77,.55),0 0 24px rgba(224,54,74,.35)}
+.logo-icon{width:38px;height:38px;flex:none}
+.loader-logo{width:96px;height:96px;margin:0 auto 20px}
+.announcement{background:linear-gradient(90deg,#0d0f1a,#171a2b,#0d0f1a);border-bottom:1px solid rgba(230,185,77,.25);color:#d9dbe6;letter-spacing:.04em;font-size:12.5px}
+.announcement strong{color:var(--gold)}
+.navbar{background:rgba(5,6,11,.72)!important;backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);border-bottom:1px solid var(--border)}
+.nav-links a{font-weight:500;letter-spacing:.02em;color:var(--text-secondary)}
+.nav-links a:hover{color:#fff}
+.cart-btn,.track-btn,.admin-btn{background:rgba(255,255,255,.04)!important;border:1px solid var(--border)!important;border-radius:12px!important;transition:.25s}
+.cart-btn:hover,.track-btn:hover,.admin-btn:hover{border-color:var(--border-hover)!important;background:rgba(230,185,77,.08)!important}
+.bg-grid{opacity:.35}
+.bg-orb{filter:blur(120px);opacity:.28}
+.hero-badge{background:rgba(230,185,77,.08)!important;border:1px solid rgba(230,185,77,.35)!important;color:#f3d98b!important;letter-spacing:.06em;font-weight:600}
+.hero-title{font-weight:700;line-height:1.05}
+.gradient-text{background:linear-gradient(100deg,#b9aeff 0%,#e6b94d 100%)!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;color:transparent!important}
+.hero-subtitle{color:var(--text-secondary);font-size:1.05rem}
+.btn-primary,.checkout-btn{background:linear-gradient(135deg,#7c6cf0 0%,#5a49d6 55%,#3f31a8 100%)!important;border:1px solid rgba(255,255,255,.14)!important;color:#fff!important;font-weight:700;letter-spacing:.02em;border-radius:14px!important;box-shadow:0 10px 30px -10px rgba(124,108,240,.7),inset 0 1px 0 rgba(255,255,255,.18)!important}
+.btn-primary:hover,.checkout-btn:hover{box-shadow:0 14px 36px -10px rgba(124,108,240,.9),inset 0 1px 0 rgba(255,255,255,.25)!important}
+.btn-secondary{background:rgba(255,255,255,.04)!important;border:1px solid var(--border)!important;border-radius:14px!important;color:#fff!important;transition:.25s}
+.btn-secondary:hover{border-color:var(--border-hover)!important}
+.stat-num{background:linear-gradient(180deg,#fff,#c9ccdc);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.trust-bar{background:rgba(255,255,255,.025)!important;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.trust-item{color:#c4c7d4;font-weight:500;letter-spacing:.02em}
+.section-tag{background:transparent!important;border:1px solid rgba(230,185,77,.4)!important;color:var(--gold)!important;letter-spacing:.18em;font-size:11px;font-weight:700;border-radius:99px}
+.section-title{font-weight:700}
+.section-subtitle{color:var(--text-secondary)}
+.feature-card,.testimonial-card,.product-card{background:linear-gradient(160deg,rgba(26,28,44,.8),rgba(12,14,24,.8))!important;border:1px solid var(--border)!important;border-radius:20px!important;backdrop-filter:blur(10px);transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .35s,box-shadow .35s}
+.feature-card:hover,.product-card:hover{transform:translateY(-6px)!important;border-color:var(--border-hover)!important;box-shadow:0 24px 50px -22px rgba(0,0,0,.9),0 0 0 1px rgba(230,185,77,.15)!important}
+.feature-icon-wrap{border-radius:16px!important;background:rgba(255,255,255,.04)!important;border:1px solid var(--border)!important}
+.filter-btn{border-radius:99px!important;border:1px solid var(--border)!important;background:rgba(255,255,255,.03)!important;color:var(--text-secondary)!important;font-weight:600;letter-spacing:.02em;transition:.25s}
+.filter-btn:hover{border-color:var(--border-hover)!important;color:#fff!important}
+.filter-btn.active{background:linear-gradient(135deg,#7c6cf0,#4b3dc4)!important;border-color:transparent!important;color:#fff!important;box-shadow:0 8px 24px -10px rgba(124,108,240,.8)}
+.product-image{border-radius:20px 20px 0 0!important;overflow:hidden}
+.product-image img{transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.product-card:hover .product-image img{transform:scale(1.06)}
+.badge{background:rgba(5,6,11,.7)!important;backdrop-filter:blur(8px);border:1px solid rgba(230,185,77,.45)!important;color:var(--gold)!important;letter-spacing:.08em;font-weight:700;font-size:11px}
+.price{font-family:'Space Grotesk',sans-serif;font-weight:700;color:#fff}
+.price-from,.product-desc{color:var(--text-muted)}
+.rating{color:var(--gold)}
+.view-btn{background:rgba(230,185,77,.1)!important;border:1px solid rgba(230,185,77,.4)!important;color:var(--gold)!important;border-radius:10px!important;font-weight:700;transition:.25s}
+.view-btn:hover{background:var(--gold)!important;color:#1a1405!important}
+.modal,.cart-sidebar,.admin-panel{background:linear-gradient(170deg,#12141f,#0a0b13)!important;border:1px solid var(--border)!important;box-shadow:0 40px 90px -30px rgba(0,0,0,.95)}
+.modal-overlay,.cart-overlay{backdrop-filter:blur(6px)}
+input,textarea,select{border-radius:12px!important}
+input:focus,textarea:focus,select:focus{border-color:var(--gold)!important;box-shadow:0 0 0 3px rgba(230,185,77,.15)!important;outline:none}
+.avatar{background:linear-gradient(135deg,#7c6cf0,#e6b94d)!important}
+.stars{color:var(--gold)}
+.footer{background:#04050a!important;border-top:1px solid var(--border)}
+.footer-col h4{letter-spacing:.14em;text-transform:uppercase;font-size:12px;color:var(--gold)}
+.footer-tg{border:1px solid rgba(230,185,77,.4)!important;border-radius:12px;background:rgba(230,185,77,.06)!important}
+.loader{background:radial-gradient(circle at center,#0c0e19 0%,#05060b 100%)}
+.loader-bar{background:linear-gradient(90deg,#7c6cf0,#e6b94d)!important}
+::selection{background:rgba(230,185,77,.35)}
+::-webkit-scrollbar{width:10px}::-webkit-scrollbar-track{background:#05060b}::-webkit-scrollbar-thumb{background:#262a3d;border-radius:8px}
+
+#cfmOverlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);z-index:9000;display:none;align-items:center;justify-content:center;padding:20px}
+#cfmOverlay.active{display:flex}
+.cfm-box{background:linear-gradient(170deg,#161828,#0a0b13);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:24px;max-width:340px;width:100%;text-align:center;box-shadow:0 40px 80px -20px #000}
+.cfm-box p{color:#e8e9f0;font-size:15px;margin-bottom:18px;line-height:1.5}
+.cfm-row{display:flex;gap:10px}
+.cfm-row button{flex:1;padding:12px;border-radius:12px;font:inherit;font-weight:700;cursor:pointer;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:#fff}
+.cfm-row button.danger{background:linear-gradient(135deg,#ef4444,#b91c1c);border-color:transparent}
+.order-btn.btn-del{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.4);color:#f87171}
+
+#siteClosed{position:fixed;inset:0;z-index:420;background:radial-gradient(circle at 50% 30%,#12142a,#05060b 70%);display:none;align-items:center;justify-content:center;padding:24px;text-align:center}
+#siteClosed.active{display:flex}
+.sc-box{max-width:380px}.sc-icon{font-size:56px;margin-bottom:12px}
+.sc-box h2{font-family:'Space Grotesk','Inter',sans-serif;font-size:28px;margin-bottom:8px}
+.sc-box p{color:#a8abb8;margin-bottom:22px}
+.sc-admin{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);color:#fff;border-radius:12px;padding:10px 20px;font:inherit;font-weight:600;cursor:pointer}
+.site-toggle.on{background:rgba(34,197,94,.15)!important;border-color:rgba(34,197,94,.5)!important;color:#4ade80!important}
+.site-toggle.off{background:rgba(239,68,68,.15)!important;border-color:rgba(239,68,68,.5)!important;color:#f87171!important}
+
+/* ===== SMOOTHNESS ===== */
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+a,button,.product-card,.filter-btn{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.feature-card,.testimonial-card,.product-card{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.modal-overlay.active{animation:ovIn .25s ease both}
+.modal-overlay.active .modal{animation:modalIn .35s cubic-bezier(.2,.8,.2,1) both}
+@keyframes ovIn{from{opacity:0}to{opacity:1}}
+@keyframes modalIn{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
+.product-image img{width:100%;height:100%;object-fit:cover}
+@media (max-width:768px){
+  .bg-orb{filter:blur(60px)!important;animation:none!important}
+  .navbar{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:rgba(5,6,11,.94)!important}
+  .modal-overlay{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
+
+.site-card{display:flex;align-items:center;justify-content:space-between;gap:16px;background:linear-gradient(160deg,rgba(26,28,44,.8),rgba(12,14,24,.8));border:1px solid var(--border);border-radius:18px;padding:20px;margin-top:14px}
+.site-state{font-size:18px;font-weight:800;font-family:'Space Grotesk',sans-serif}
+.site-sub{color:var(--text-muted);font-size:13px;margin-top:4px}
+.site-switch{flex:none;width:72px;height:40px;border-radius:99px;border:0;background:#ef4444;position:relative;cursor:pointer;transition:background .3s}
+.site-switch span{position:absolute;top:4px;left:4px;width:32px;height:32px;border-radius:50%;background:#fff;transition:transform .3s cubic-bezier(.2,.8,.2,1);box-shadow:0 2px 8px rgba(0,0,0,.4)}
+.site-switch.on{background:#22c55e}.site-switch.on span{transform:translateX(32px)}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ============ LOADING SCREEN ============ -->
+<div class="loader" id="loader">
+  <div class="loader-content">
+    <div class="loader-logo">🎮</div>
+    <h1 class="loader-title">NAGESH PANEL<span> STORE</span></h1>
+    <div class="loader-spinner">
+      <div class="spinner-ring"></div>
+      <div class="spinner-ring"></div>
+      <div class="spinner-ring"></div>
+    </div>
+    <p class="loader-text" id="loaderText">Connecting to server...</p>
+    <div class="loader-progress">
+      <div class="loader-bar" id="loaderBar"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MAIN WEBSITE ============ -->
+<div class="website" id="website">
+
+<div class="bg-effects">
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+  <div class="bg-orb bg-orb-3"></div>
+  <div class="bg-grid"></div>
+</div>
+
+<div class="announcement">
+  <span>🔥 Limited Time: 50% OFF — Code: <strong>NAGESH50</strong></span>
+</div>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="#" class="logo">
+      <div class="logo-icon">🎮</div>
+      <span class="logo-text">NAGESH PANEL<span class="logo-accent"> STORE</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="#products">Mods</a>
+      <a href="#" onclick="openTrackOrder(); return false;">Track Order</a>
+      <a href="#features">Why Us</a>
+    </div>
+    <div class="nav-actions">
+      <button class="track-btn" type="button" onclick="openTrackOrder()" title="Track Order">🔍</button>
+      <button class="admin-btn" type="button" onclick="openAdminLogin()" title="Admin">⚙️</button>
+      <button class="cart-btn" type="button" onclick="toggleCart()">
+        <span>🛒</span>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Trusted by 15,000+ Gamers
+    </div>
+    <h1 class="hero-title">
+      <span class="hero-line-1">Level Up Your</span>
+      <span class="hero-line-2 gradient-text">Gaming Experience</span>
+    </h1>
+    <p class="hero-subtitle">
+      Premium mods for Minecraft, Free Fire, BGMI, aur more.<br>
+      Instant delivery. Lifetime updates. 100% safe.
+    </p>
+    <div class="hero-actions">
+      <a href="#products" class="btn-primary">
+        <span>Browse Mods</span>
+        <span class="btn-arrow">→</span>
+      </a>
+      <button type="button" onclick="openTrackOrder()" class="btn-secondary">
+        <span>🔍 Track Order</span>
+      </button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-icon">👥</div>
+        <div class="stat-num">15K+</div>
+        <div class="stat-label">Happy Gamers</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-icon">📦</div>
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Premium Mods</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-icon">⭐</div>
+        <div class="stat-num">4.9</div>
+        <div class="stat-label">Avg Rating</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="trust-bar">
+  <div class="trust-item"><span>⚡</span> Instant Download</div>
+  <div class="trust-item"><span>🔒</span> Secure Payment</div>
+  <div class="trust-item"><span>🛡️</span> Virus-Free</div>
+  <div class="trust-item"><span>♾️</span> Lifetime Access</div>
+  <div class="trust-item"><span>💬</span> 24/7 Support</div>
+</section>
+
+<section class="features" id="features">
+  <div class="section-header">
+    <div class="section-tag">✨ WHY CHOOSE US</div>
+    <h2 class="section-title">Built for <span class="gradient-text">Serious Gamers</span></h2>
+    <p class="section-subtitle">Everything you need, nothing you don't.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card" style="--accent: #8b5cf6;">
+      <div class="feature-icon-wrap"><div class="feature-icon">⚡</div></div>
+      <h3>Instant Delivery</h3>
+      <p>Payment ke turant baad key milegi. Zero waiting.</p>
+    </div>
+    <div class="feature-card" style="--accent: #ec4899;">
+      <div class="feature-icon-wrap"><div class="feature-icon">🛡️</div></div>
+      <h3>100% Safe</h3>
+      <p>Har mod manually tested. Virus-free guarantee.</p>
+    </div>
+    <div class="feature-card" style="--accent: #06b6d4;">
+      <div class="feature-icon-wrap"><div class="feature-icon">🔑</div></div>
+      <h3>Unique Key</h3>
+      <p>Har buyer ko apni personal key milegi.</p>
+    </div>
+    <div class="feature-card" style="--accent: #f59e0b;">
+      <div class="feature-icon-wrap"><div class="feature-icon">💎</div></div>
+      <h3>Premium Quality</h3>
+      <p>Sirf best mods. Hand-picked aur professionally crafted.</p>
+    </div>
+  </div>
+</section>
+
+<section class="products-section" id="products">
+  <div class="section-header">
+    <div class="section-tag">🔥 BESTSELLERS</div>
+    <h2 class="section-title">Featured <span class="gradient-text">Mods</span></h2>
+    <p class="section-subtitle">Choose your duration and level up</p>
+  </div>
+  <div class="filters" id="filters"></div>
+  <div class="products-grid" id="productsGrid"></div>
+</section>
+
+<section class="testimonials" id="testimonials">
+  <div class="section-header">
+    <div class="section-tag">💬 TESTIMONIALS</div>
+    <h2 class="section-title">Loved by <span class="gradient-text">Gamers</span></h2>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p>"Shaders next level hai! Worth every rupee. Instant delivery bhi mili."</p>
+      <div class="testimonial-user">
+        <div class="avatar">A</div>
+        <div><div class="user-name">Arjun M.</div><div class="user-tag">Minecraft Player</div></div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p>"Instant delivery, top quality. Telegram support bahut fast. 10/10!"</p>
+      <div class="testimonial-user">
+        <div class="avatar avatar-2">R</div>
+        <div><div class="user-name">Rohit K.</div><div class="user-tag">GTA V Player</div></div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p>"Free Fire mod perfect kaam kar raha hai. Legit seller, trusted!"</p>
+      <div class="testimonial-user">
+        <div class="avatar avatar-3">S</div>
+        <div><div class="user-name">Sneha P.</div><div class="user-tag">Free Fire Player</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-brand">
+      <div class="logo">
+        <div class="logo-icon">🎮</div>
+        <span class="logo-text">NAGESH PANEL<span class="logo-accent"> STORE</span></span>
+      </div>
+      <p>Premium game mods for serious gamers.</p>
+      <a href="https://t.me/nageshsahoo01" target="_blank" rel="noopener" class="footer-tg">
+        <span>💬</span> @nageshsahoo01
+      </a>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="#products">Mods</a>
+        <a href="#" onclick="openTrackOrder(); return false;">Track Order</a>
+        <a href="#features">Features</a>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <a href="https://t.me/nageshsahoo01" target="_blank" rel="noopener">Telegram</a>
+        <a href="#">FAQ</a>
+        <a href="https://t.me/nageshsahoo01" target="_blank" rel="noopener">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 NAGESH PANEL STORE. Made with 💜 in India</p>
+  </div>
+</footer>
+
+</div>
+
+<!-- ============ PRODUCT MODAL ============ -->
+<div class="modal-overlay" id="productModal" onclick="closeProductModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" type="button" onclick="closeProductModal()">✕</button>
+    <div class="modal-image"><img id="modalImage" src="" alt=""></div>
+    <div class="modal-body">
+      <span class="badge-modal" id="modalGame"></span>
+      <h2 id="modalTitle"></h2>
+      <div class="product-meta">
+        <span class="rating">★ <span id="modalRating"></span></span>
+        <span id="modalSales"></span>
+      </div>
+      <p class="modal-desc" id="modalDesc"></p>
+      <h3 class="duration-title">Choose Duration</h3>
+      <div class="duration-options" id="durationOptions"></div>
+      <div class="modal-bottom">
+        <div class="price-wrap"><span class="price" id="modalPrice">₹0</span></div>
+        <button class="btn-primary" type="button" onclick="addSelectedToCart()">
+          <span>Add to Cart</span><span>→</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CART ============ -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <h2>Your Cart</h2>
+    <button type="button" onclick="toggleCart()" class="close-btn">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-footer">
+    <div class="cart-total">
+      <span>Total</span>
+      <span id="cartTotal" class="cart-total-price">₹0</span>
+    </div>
+    <button class="checkout-btn" type="button" onclick="openCheckout()">
+      <span>Checkout</span><span>→</span>
+    </button>
+  </div>
+</div>
+
+<!-- ============ CHECKOUT ============ -->
+<div class="modal-overlay" id="checkoutModal" onclick="closeCheckout(event)">
+  <div class="modal checkout-modal" onclick="event.stopPropagation()">
+    <button class="modal-close" type="button" onclick="closeCheckout()">✕</button>
+    <div class="modal-body">
+      <h2>Complete Your Order</h2>
+      <p class="modal-sub">Payment ke baad key milegi</p>
+      <div class="qr-section">
+        <h3>Scan & Pay</h3>
+        <div class="qr-wrap"><img id="qrImage" src="" alt="QR"></div>
+        <p class="qr-amount">Amount: <strong id="qrAmount">₹0</strong></p>
+      </div>
+      <div class="form-group">
+        <label>Your Telegram Username</label>
+        <input type="text" id="tgUsername" placeholder="@yourusername" required>
+        <p class="form-hint">Order confirm karne ke liye zaroori</p>
+      </div>
+      <div class="form-group">
+        <label>Your Email (optional)</label>
+        <input type="email" id="custEmail" placeholder="you@example.com">
+      </div>
+      <div class="form-group">
+        <label>Payment Note (optional)</label>
+        <input type="text" id="paymentNote" placeholder="Transaction ID">
+      </div>
+      <button class="btn-primary full-width" type="button" onclick="placeOrder()">
+        <span>Confirm Order</span><span>→</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TRACK ORDER MODAL ============ -->
+<div class="modal-overlay" id="trackModal" onclick="closeTrackModal(event)">
+  <div class="modal small-modal" onclick="event.stopPropagation()">
+    <button class="modal-close" type="button" onclick="closeTrackModal()">✕</button>
+    <div class="modal-body">
+      <div class="login-icon">🔍</div>
+      <h2>Track Your Order</h2>
+      <p class="modal-sub">Order ID daalo aur apni key dekho</p>
+      <div class="form-group">
+        <label>Order ID</label>
+        <input type="text" id="trackOrderId" placeholder="ORD1234567890">
+        <p class="form-hint">Example: ORD1759845123456</p>
+      </div>
+      <button class="btn-primary full-width" type="button" onclick="trackOrder()">
+        <span>Track Order</span>
+      </button>
+      <div id="trackResult"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ORDER SUCCESS MODAL ============ -->
+<div class="modal-overlay" id="successModal" onclick="closeSuccess(event)">
+  <div class="modal small-modal" onclick="event.stopPropagation()">
+    <button class="modal-close" type="button" onclick="closeSuccess()">✕</button>
+    <div class="modal-body success-body">
+      <div class="success-icon">✅</div>
+      <h2>Order Placed!</h2>
+      <p class="modal-sub">Apna Order ID save karo — isse key milegi</p>
+      <div class="order-id-display">
+        <label>Your Order ID</label>
+        <div class="order-id-box">
+          <span id="successOrderId"></span>
+          <button type="button" class="copy-btn" onclick="copyOrderId()">📋 Copy</button>
+        </div>
+      </div>
+      <div class="success-info">
+        <p>💬 Telegram: <strong>@nageshsahoo01</strong></p>
+        <p>⏱️ Admin 5-10 min mein key de dega</p>
+        <p>🔍 Order ID se track kar sakte ho</p>
+      </div>
+      <button class="btn-primary full-width" type="button" onclick="closeSuccess(); openTrackOrder();">
+        <span>Track Order</span><span>→</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ADMIN LOGIN ============ -->
+<div class="modal-overlay" id="adminLoginModal" onclick="closeAdminLogin(event)">
+  <div class="modal small-modal" onclick="event.stopPropagation()">
+    <button class="modal-close" type="button" onclick="closeAdminLogin()">✕</button>
+    <div class="modal-body">
+      <div class="login-icon">🔐</div>
+      <h2>Admin Login</h2>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="adminPass" placeholder="Password" autocomplete="off" onkeydown="if(event.key==='Enter')adminLogin()">
+      </div>
+      <button class="btn-primary full-width" type="button" onclick="adminLogin()">
+        <span>Login</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ADMIN PANEL ============ -->
+<div id="siteClosed">
+  <div class="sc-box">
+    <div class="sc-icon">🔒</div>
+    <h2>Store abhi band hai</h2>
+    <p>Thodi der baad dobara aana. Jaldi hi wapas aayenge!</p>
+    <button type="button" class="sc-admin" onclick="openAdminLogin()">Admin Login</button>
+  </div>
+</div>
+
+<div id="cfmOverlay"><div class="cfm-box"><p id="cfmText"></p><div class="cfm-row"><button type="button" id="cfmNo">Cancel</button><button type="button" class="danger" id="cfmYes">Haan, karo</button></div></div></div>
+
+<div class="admin-panel" id="adminPanel">
+  <div class="admin-header">
+    <div class="admin-header-top">
+      <h2>⚙️ NAGESH PANEL STORE — Admin</h2>
+      <div style="display:flex;gap:8px;align-items:center"><button class="admin-logout site-toggle" id="siteToggleBtn" type="button" onclick="toggleSite()">🟢 Website ON</button><button class="admin-logout" type="button" onclick="adminLogout()">Logout</button></div>
+    </div>
+    <div class="admin-header-actions">
+      <button class="admin-nav-btn active" type="button" onclick="switchAdminTab('orders', this)">📋 Orders</button>
+      <button class="admin-nav-btn" type="button" onclick="switchAdminTab('site', this)">🌐 Website</button>
+      <button class="admin-nav-btn" type="button" onclick="switchAdminTab('mods', this)">📦 Mods</button>
+      <button class="admin-nav-btn" type="button" onclick="switchAdminTab('qr', this)">📱 QR</button>
+      <button class="admin-nav-btn" type="button" onclick="switchAdminTab('settings', this)">⚙️ Settings</button>
+    </div>
+  </div>
+
+  <div class="admin-tab active" id="tab-orders">
+    <h3>Order Management</h3>
+    <p class="admin-hint">Customer ki order approve karo aur key deliver karo</p>
+    <div class="admin-orders-list" id="adminOrdersList"></div>
+  </div>
+
+  <div class="admin-tab" id="tab-site">
+    <h3>Website ON / OFF</h3>
+    <p class="admin-hint">OFF karne par customers ko "Store band hai" screen dikhegi aur order nahi ho paayega. Aap admin login se andar aa sakte ho.</p>
+    <div class="site-card">
+      <div>
+        <div class="site-state" id="siteStateText">Website ON hai</div>
+        <div class="site-sub" id="siteStateSub">Customers store dekh aur order kar sakte hain</div>
+      </div>
+      <button type="button" class="site-switch" id="siteSwitch" onclick="toggleSite()" aria-label="Website on off"><span></span></button>
+    </div>
+  </div>
+
+  <div class="admin-tab" id="tab-mods">
+    <div class="admin-section-header">
+      <h3>Manage Mods</h3>
+      <button class="btn-primary" type="button" id="addModBtn">
+        <span>+ Add New Mod</span>
+      </button>
+    </div>
+    <div class="admin-mods-list" id="adminModsList"></div>
+  </div>
+
+  <div class="admin-tab" id="tab-qr">
+    <h3>Payment QR Code</h3>
+    <div class="qr-preview"><img id="adminQrPreview" src="" alt="QR"></div>
+    <div class="form-group">
+      <label>Upload QR Image</label>
+      <input type="file" id="qrFileInput" accept="image/*">
+    </div>
+    <div class="form-group">
+      <label>Ya QR URL</label>
+      <input type="text" id="qrUrlInput" placeholder="https://...">
+    </div>
+    <button class="btn-primary" type="button" onclick="updateQR()">
+      <span>Update QR Code</span>
+    </button>
+  </div>
+
+  <div class="admin-tab" id="tab-settings">
+    <h3>Bot Settings</h3>
+    <div class="form-group">
+      <label>Telegram Bot Token</label>
+      <input type="text" id="botTokenInput" placeholder="123456:ABC...">
+      <p class="form-hint">@BotFather se banao</p>
+    </div>
+    <div class="form-group">
+      <label>Telegram Chat ID</label>
+      <input type="text" id="chatIdInput" placeholder="@nageshsahoo01">
+    </div>
+    <button class="btn-primary" type="button" onclick="saveBotSettings()">
+      <span>Save Settings</span>
+    </button>
+  </div>
+</div>
+
+<!-- ============ ADD/EDIT MOD MODAL ============ -->
+<div class="modal-overlay" id="addModModal" onclick="closeAddMod(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" type="button" onclick="closeAddMod()">✕</button>
+    <div class="modal-body">
+      <h2 id="modModalTitle">Add New Mod</h2>
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" id="modTitle" placeholder="Ultra Shaders Pack">
+      </div>
+      <div class="form-group">
+        <label>Game</label>
+        <select id="modGame">
+          <option>Minecraft</option>
+          <option>Skyrim</option>
+          <option>GTA V</option>
+          <option>Free Fire</option>
+          <option>BGMI</option>
+          <option>PUBG</option>
+          <option>Call of Duty</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Product Image</label>
+        <div class="image-upload-area">
+          <input type="file" id="modImageFile" accept="image/*" hidden>
+          <div class="upload-placeholder" id="uploadPlaceholder" onclick="document.getElementById('modImageFile').click()">
+            <div class="upload-icon">📷</div>
+            <p>Tap to upload image</p>
+            <span>JPG, PNG, WEBP • auto resize</span>
+          </div>
+          <div class="upload-preview" id="uploadPreview" style="display:none;">
+            <img id="previewImg" src="" alt="Preview">
+            <button type="button" class="remove-img-btn" onclick="removeImage()">✕ Remove</button>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea id="modDesc" rows="3" placeholder="Short description"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Duration & Prices (₹)</label>
+        <div class="duration-inputs" id="durationInputs"></div>
+      </div>
+      <button class="btn-primary full-width" type="button" onclick="saveMod()">
+        <span id="saveModBtnText">Save Mod</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ DELIVER KEY MODAL ============ -->
+<div class="modal-overlay" id="deliverKeyModal" onclick="closeDeliverKey(event)">
+  <div class="modal small-modal" onclick="event.stopPropagation()">
+    <button class="modal-close" type="button" onclick="closeDeliverKey()">✕</button>
+    <div class="modal-body">
+      <div class="login-icon">🔑</div>
+      <h2>Deliver Key</h2>
+      <p class="modal-sub">Customer ko key do</p>
+
+      <div class="order-detail-box" id="deliverOrderInfo"></div>
+
+      <div class="form-group">
+        <label>License Key / Product Key</label>
+        <input type="text" id="deliverKeyInput" placeholder="NAGESH-XXXX-XXXX-1234">
+        <p class="form-hint">Ye key customer ko dikhegi</p>
+      </div>
+
+      <div class="form-group">
+        <label>Download Link (optional)</label>
+        <input type="text" id="deliverDownloadInput" placeholder="https://...">
+      </div>
+
+      <div class="form-group">
+        <label>Admin Note (optional)</label>
+        <input type="text" id="deliverNoteInput" placeholder="Thanks for buying!">
+      </div>
+
+      <div class="deliver-actions">
+        <button class="btn-primary full-width" type="button" onclick="deliverKeyAndApprove()">
+          <span>✅ Approve & Deliver Key</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <span id="toastMsg">Done!</span>
+</div>
+
+<script>
+// Safe storage: published pages may have storage blocked, so fall back to memory
+var safeLS=(function(){var mem={};return{
+  getItem:function(k){try{var v=window.localStorage.getItem(k);return v===null&&k in mem?mem[k]:v}catch(e){return k in mem?mem[k]:null}},
+  setItem:function(k,v){mem[k]=String(v);try{window.localStorage.setItem(k,v)}catch(e){}},
+  removeItem:function(k){delete mem[k];try{window.localStorage.removeItem(k)}catch(e){}}
+}})();
+</script>
+<script>
+// ============ CONFIG ============
+const ADMIN_PASSWORD = "NAGESH6370";
+const TELEGRAM_USERNAME = "@nageshsahoo01";
+
+// ============ STATE ============
+let cart = JSON.parse(safeLS.getItem("cart")) || [];
+let currentFilter = "All";
+let selectedProduct = null;
+let selectedDuration = null;
+let editingModId = null;
+let isAdminLoggedIn = false;
+let uploadedImageBase64 = "";
+let currentDeliverOrderId = null;
+
+let qrImage = safeLS.getItem("qrImage") ||
+  "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=upi://pay?pa=nageshpanelstore@upi";
+
+const DURATIONS = ["2 Hours", "4 Hours", "6 Hours", "12 Hours", "24 Hours", "1 Day", "3 Days", "7 Days", "30 Days", "Lifetime"];
+function sortedPrices(prices) {
+  return Object.entries(prices || {}).sort((x, y) => {
+    const i = DURATIONS.indexOf(x[0]), j = DURATIONS.indexOf(y[0]);
+    return (i < 0 ? 99 : i) - (j < 0 ? 99 : j);
+  });
+}
+function buildDurationInputs() {
+  const box = document.getElementById("durationInputs");
+  if (!box) return;
+  box.innerHTML = DURATIONS.map((d, i) =>
+    '<div class="duration-row"><input type="text" value="' + d + '" disabled><input type="number" min="0" inputmode="numeric" id="dprice' + i + '" placeholder="₹ price"></div>'
+  ).join("");
+}
+let botSettings = JSON.parse(safeLS.getItem("botSettings")) || {
+  botToken: "",
+  chatId: TELEGRAM_USERNAME,
+};
+
+let products = JSON.parse(safeLS.getItem("products")) || [];
+
+
+// ============ PERSISTENT PRODUCTS ============
+// Products live in the artifact database (stay until admin deletes them),
+// with a local copy as fallback when the database is unavailable.
+let productsDB = null;
+let dbFirstSnapshot = true;
+
+function refreshProductViews() {
+  renderFilters();
+  renderProducts();
+  if (isAdminLoggedIn) renderAdminMods();
+}
+
+function saveProductRemote(p) {
+  if (!productsDB || !p) return Promise.resolve();
+  return productsDB.doc("products/" + p.id).set(JSON.parse(JSON.stringify(p))).catch(function (e) {
+    console.warn("save product failed", e);
+    showToast("⚠️ Server par save nahi hua (sirf owner save kar sakta hai)");
+  });
+}
+
+function deleteProductRemote(id) {
+  if (!productsDB) return Promise.resolve();
+  return productsDB.doc("products/" + id).delete().catch(function (e) {
+    console.warn("delete product failed", e);
+    showToast("⚠️ Server se delete nahi hua");
+  });
+}
+
+async function initProductsDB() {
+  try {
+    if (!window.claude || !window.claude.use) return;
+    const db = await window.claude.use("db");
+    if (!db) return;
+    productsDB = db;
+    db.collection("products").onSnapshot(function (snap) {
+      const list = snap.docs.map(function (d) { return d.data(); })
+        .filter(Boolean).sort(function (a, b) { return a.id - b.id; });
+      const seeded = safeLS.getItem("productsSeeded") === "1";
+      if (list.length === 0 && dbFirstSnapshot && !seeded && products.length) {
+        // one-time upload of products that were saved only on this device
+        safeLS.setItem("productsSeeded", "1");
+        dbFirstSnapshot = false;
+        products.forEach(saveProductRemote);
+        return;
+      }
+      dbFirstSnapshot = false;
+      safeLS.setItem("productsSeeded", "1");
+      products = list;
+      try { safeLS.setItem("products", JSON.stringify(products)); } catch (e) {}
+      refreshProductViews();
+    }, function (e) { console.warn("products db error", e); });
+  } catch (e) { console.warn("db init failed", e); }
+}
+
+
+// ============ SHARED ORDERS + QR (artifact database) ============
+// Each customer writes only their own doc: orders/<uid> = { uid, orders: { <orderId>: {...} } }
+// The owner/admin reads every customer doc. Falls back to this device when the db is unavailable.
+let ordersDB = null, myUid = null, mineMap = {}, allMap = {}, unsubAll = null;
+
+function localOrders() {
+  try { return JSON.parse(safeLS.getItem("orders")) || []; } catch (e) { return []; }
+}
+function upsertLocal(o) {
+  const l = localOrders().filter((x) => x.orderId !== o.orderId);
+  l.unshift(o);
+  try { safeLS.setItem("orders", JSON.stringify(l)); } catch (e) {}
+}
+function getOrders() {
+  const m = {};
+  localOrders().forEach((o) => { m[o.orderId] = o; });
+  Object.values(mineMap).forEach((o) => { m[o.orderId] = o; });
+  Object.values(allMap).forEach((o) => { m[o.orderId] = o; });
+  return Object.values(m).sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+}
+function setRemoteCopy(o) {
+  if (myUid && o.uid === myUid) mineMap[o.orderId] = o;
+  if (isAdminLoggedIn) allMap[o.orderId] = o;
+}
+
+async function saveNewOrder(order) {
+  if (ordersDB && myUid) {
+    order.uid = myUid;
+    try {
+      try {
+        await ordersDB.doc("orders/" + myUid).update({ orders: { [order.orderId]: order } });
+      } catch (e) {
+        await ordersDB.doc("orders/" + myUid).set({ uid: myUid, orders: { [order.orderId]: order } });
+      }
+      setRemoteCopy(order);
+      return true;
+    } catch (e) {
+      console.warn("order save failed", e);
+      delete order.uid;
+    }
+  }
+  upsertLocal(order);
+  return false;
+}
+
+async function patchOrder(orderId, patch) {
+  if (!isAdminLoggedIn) { showToast("🔒 Sirf admin kar sakta hai"); return; }
+  const o = getOrders().find((x) => x.orderId === orderId);
+  if (!o) return null;
+  const n = Object.assign({}, o, patch);
+  if (ordersDB && o.uid) {
+    try {
+      await ordersDB.doc("orders/" + o.uid).update({ orders: { [orderId]: n } });
+      setRemoteCopy(n);
+      return n;
+    } catch (e) {
+      console.warn("order update failed", e);
+      showToast("⚠️ Server par update nahi hua (sirf owner kar sakta hai)");
+      return null;
+    }
+  }
+  upsertLocal(n);
+  return n;
+}
+
+function startAdminOrders() {
+  if (!ordersDB || unsubAll) return;
+  unsubAll = ordersDB.collection("orders").onSnapshot(function (snap) {
+    allMap = {};
+    snap.docs.forEach(function (d) {
+      const data = d.data() || {};
+      Object.values(data.orders || {}).forEach(function (o) { if (o && o.orderId) allMap[o.orderId] = o; });
+    });
+    if (isAdminLoggedIn) renderAdminOrders();
+  }, function (e) { console.warn("orders listen error", e); });
+}
+function stopAdminOrders() {
+  if (unsubAll) { unsubAll(); unsubAll = null; }
+  allMap = {};
+}
+
+function applyQR(img) {
+  if (!img) return;
+  qrImage = img;
+  try { safeLS.setItem("qrImage", img); } catch (e) {}
+  const el = document.getElementById("qrImage");
+  if (el && document.getElementById("checkoutModal").classList.contains("active")) el.src = img;
+  const pv = document.getElementById("adminQrPreview");
+  if (pv && isAdminLoggedIn) pv.src = img;
+}
+function saveQRRemote(img) {
+  if (!ordersDB) return;
+  ordersDB.doc("settings/qr").set({ image: img }).catch(function (e) {
+    console.warn("qr save failed", e);
+    showToast("⚠️ QR server par save nahi hua (sirf owner kar sakta hai)");
+  });
+}
+function downscaleDataUrl(dataUrl, maxW, q) {
+  return new Promise(function (resolve) {
+    const im = new Image();
+    im.onload = function () {
+      const w = Math.min(maxW, im.width), h = Math.round(im.height * w / im.width);
+      const c = document.createElement("canvas");
+      c.width = w; c.height = h;
+      const x = c.getContext("2d");
+      x.fillStyle = "#ffffff"; x.fillRect(0, 0, w, h);
+      x.drawImage(im, 0, 0, w, h);
+      resolve(c.toDataURL("image/jpeg", q));
+    };
+    im.onerror = function () { resolve(dataUrl); };
+    im.src = dataUrl;
+  });
+}
+
+async function initSharedDB() {
+  try {
+    if (!window.claude || !window.claude.use) return;
+    const db = await window.claude.use("db");
+    if (!db) return;
+    ordersDB = db;
+    const user = await window.claude.use("user");
+    myUid = user && user.id ? await user.id() : null;
+    if (myUid) {
+      db.doc("orders/" + myUid).onSnapshot(function (snap) {
+        mineMap = {};
+        if (snap.exists) Object.values((snap.data() || {}).orders || {}).forEach(function (o) { if (o && o.orderId) mineMap[o.orderId] = o; });
+      }, function (e) { console.warn("my orders error", e); });
+    }
+    db.doc("settings/site").onSnapshot(function (snap) {
+      if (snap.exists) {
+        siteOpen = snap.data().open !== false;
+        try { safeLS.setItem("siteOpen", siteOpen ? "1" : "0"); } catch (e) {}
+      }
+      applySite();
+    }, function (e) { console.warn("site listen error", e); });
+    db.doc("settings/qr").onSnapshot(function (snap) {
+      if (snap.exists && snap.data().image) applyQR(snap.data().image);
+    }, function (e) { console.warn("qr listen error", e); });
+    if (isAdminLoggedIn) startAdminOrders();
+  } catch (e) { console.warn("shared db init failed", e); }
+}
+
+
+// ============ WEBSITE ON/OFF + SMOOTH REVEAL ============
+let siteOpen = safeLS.getItem("siteOpen") !== "0";
+
+function applySite() {
+  const ov = document.getElementById("siteClosed");
+  if (ov) ov.classList.toggle("active", !siteOpen && !isAdminLoggedIn);
+  const b = document.getElementById("siteToggleBtn");
+  if (b) {
+    b.textContent = siteOpen ? "🟢 Website ON" : "🔴 Website OFF";
+    b.classList.toggle("on", siteOpen);
+    b.classList.toggle("off", !siteOpen);
+  }
+  const sw = document.getElementById("siteSwitch");
+  if (sw) {
+    sw.classList.toggle("on", siteOpen);
+    document.getElementById("siteStateText").textContent = siteOpen ? "Website ON hai" : "Website OFF hai";
+    document.getElementById("siteStateSub").textContent = siteOpen
+      ? "Customers store dekh aur order kar sakte hain"
+      : "Customers ko 'Store band hai' screen dikh rahi hai";
+  }
+}
+
+function toggleSite() {
+  if (!isAdminLoggedIn) { showToast("🔒 Sirf admin kar sakta hai"); return; }
+  siteOpen = !siteOpen;
+  try { safeLS.setItem("siteOpen", siteOpen ? "1" : "0"); } catch (e) {}
+  if (ordersDB) {
+    ordersDB.doc("settings/site").set({ open: siteOpen }).catch(function (e) {
+      console.warn("site toggle save failed", e);
+      showToast("⚠️ Server par save nahi hua (sirf owner kar sakta hai)");
+    });
+  }
+  applySite();
+  showToast(siteOpen ? "🟢 Website ON ho gayi" : "🔴 Website OFF ho gayi");
+}
+
+let revealObserver = null;
+function observeReveal() {
+  const els = document.querySelectorAll(".product-card, .feature-card, .testimonial-card, .section-header, .stat-card, .trust-item");
+  if (!("IntersectionObserver" in window)) {
+    els.forEach(function (el) { el.classList.add("in"); });
+    return;
+  }
+  if (!revealObserver) {
+    revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add("in"); revealObserver.unobserve(en.target); }
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.05 });
+  }
+  els.forEach(function (el, i) {
+    if (el.dataset.rv) return;
+    el.dataset.rv = "1";
+    el.classList.add("reveal");
+    el.style.transitionDelay = (i % 6) * 60 + "ms";
+    revealObserver.observe(el);
+  });
+}
+
+const _renderProductsBase = renderProducts;
+renderProducts = function () {
+  _renderProductsBase();
+  observeReveal();
+  setTimeout(function () {
+    document.querySelectorAll(".reveal:not(.in)").forEach(function (el) {
+      if (el.getBoundingClientRect().top < window.innerHeight * 1.2) el.classList.add("in");
+    });
+  }, 2500);
+};
+
+// ============ CLICK SOUND ============
+(function () {
+  var ctx = null;
+  function beep() {
+    try {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      if (!ctx) ctx = new AC();
+      if (ctx.state === "suspended") ctx.resume();
+      var t = ctx.currentTime;
+      var osc = ctx.createOscillator();
+      var gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(1000, t);
+      osc.frequency.exponentialRampToValueAtTime(700, t + 0.09);
+      gain.gain.setValueAtTime(0.0001, t);
+      gain.gain.exponentialRampToValueAtTime(0.18, t + 0.01);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.11);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(t);
+      osc.stop(t + 0.12);
+    } catch (e) {}
+  }
+  document.addEventListener("click", function (e) {
+    var el = e.target.closest && e.target.closest("button, a, [onclick], .product-card, .filter-btn, .duration-option, .site-switch, .upload-placeholder, input[type=file]");
+    if (el && !el.disabled) beep();
+  }, true);
+})();
+
+// ============ LOADER ============
+function runLoader() {
+  const loader = document.getElementById("loader");
+  const bar = document.getElementById("loaderBar");
+  const text = document.getElementById("loaderText");
+  const website = document.getElementById("website");
+
+  const steps = [
+    { p: 15, t: "Connecting to server..." },
+    { p: 35, t: "Loading products..." },
+    { p: 55, t: "Verifying connection..." },
+    { p: 75, t: "Almost ready..." },
+    { p: 100, t: "Welcome to NAGESH PANEL STORE! 🎮" },
+  ];
+
+  let i = 0;
+  const interval = setInterval(() => {
+    if (i < steps.length) {
+      bar.style.width = steps[i].p + "%";
+      text.textContent = steps[i].t;
+      i++;
+    } else {
+      clearInterval(interval);
+      setTimeout(() => {
+        loader.classList.add("hidden");
+        website.classList.add("visible");
+      }, 200);
+    }
+  }, 260);
+}
+
+// ============ IMAGE UPLOAD ============
+function handleImageUpload(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  if (file.size > 25 * 1024 * 1024) {
+    showToast("⚠️ Image bahut badi hai (25MB se kam rakho)");
+    e.target.value = "";
+    return;
+  }
+  if (!file.type.startsWith("image/")) {
+    showToast("⚠️ Sirf image file chahiye!");
+    e.target.value = "";
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function (event) {
+    const done = function (data) {
+      uploadedImageBase64 = data;
+      document.getElementById("previewImg").src = uploadedImageBase64;
+      document.getElementById("uploadPlaceholder").style.display = "none";
+      document.getElementById("uploadPreview").style.display = "block";
+      showToast("✅ Image loaded!");
+    };
+    const im = new Image();
+    im.onload = function () {
+      const w = Math.min(800, im.width), h = Math.round(im.height * w / im.width);
+      const c = document.createElement("canvas");
+      c.width = w; c.height = h;
+      const x = c.getContext("2d");
+      x.fillStyle = "#0b0c14"; x.fillRect(0, 0, w, h);
+      x.drawImage(im, 0, 0, w, h);
+      done(c.toDataURL("image/jpeg", 0.78));
+    };
+    im.onerror = function () { showToast("⚠️ Image khul nahi payi, dusri try karo"); };
+    im.src = event.target.result;
+  };
+  reader.onerror = function () { showToast("⚠️ File read nahi hui"); };
+  reader.readAsDataURL(file);
+  e.target.value = "";
+}
+
+function removeImage() {
+  uploadedImageBase64 = "";
+  document.getElementById("modImageFile").value = "";
+  document.getElementById("previewImg").src = "";
+  document.getElementById("uploadPlaceholder").style.display = "block";
+  document.getElementById("uploadPreview").style.display = "none";
+}
+
+// ============ RENDER FILTERS ============
+function renderFilters() {
+  const games = ["All", ...new Set(products.map((p) => p.game))];
+  const filtersEl = document.getElementById("filters");
+  filtersEl.innerHTML = games.map((g, i) => `
+    <button class="filter-btn ${i === 0 ? "active" : ""}" type="button" onclick="filterProducts('${g}', this)">
+      ${g === "All" ? "All Mods" : g}
+    </button>
+  `).join("");
+}
+
+// ============ RENDER PRODUCTS ============
+function renderProducts() {
+  const grid = document.getElementById("productsGrid");
+
+  if (products.length === 0) {
+    grid.innerHTML = `
+      <div class="empty-products">
+        <div class="empty-products-icon">📦</div>
+        <h3>Abhi Koi Mod Nahi Hai</h3>
+        <p>Admin panel se naye mods add karo — turant yahan dikhenge!</p>
+        <div class="empty-products-tag">COMING SOON</div>
+      </div>
+    `;
+    return;
+  }
+
+  const filtered = currentFilter === "All"
+    ? products
+    : products.filter((p) => p.game === currentFilter);
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `
+      <div class="empty-products">
+        <div class="empty-products-icon">🔍</div>
+        <h3>Koi Mod Nahi Mila</h3>
+      </div>
+    `;
+    return;
+  }
+
+  grid.innerHTML = filtered.map((p) => {
+    const validPrices = Object.values(p.prices).filter((x) => x > 0);
+    const lowestPrice = validPrices.length > 0 ? Math.min(...validPrices) : 0;
+    return `
+      <div class="product-card" onclick="openProductModal(${p.id})">
+        <div class="product-image">
+          <img src="${p.image}" alt="${escHtml(p.title)}" loading="lazy" decoding="async">
+          <span class="badge">${p.game}</span>
+        </div>
+        <div class="product-info">
+          <h3>${p.title}</h3>
+          <p class="product-desc">${p.description || "Premium mod for " + p.game}</p>
+          <div class="product-meta">
+            <span class="rating">★ ${p.rating || 5.0}</span>
+            <span>• ${p.sales || 0} sales</span>
+          </div>
+          <div class="product-bottom">
+            <div class="price-wrap">
+              <span class="price">₹${lowestPrice}</span>
+              <span class="price-from">se shuru</span>
+            </div>
+            <button class="view-btn" type="button" onclick="event.stopPropagation(); openProductModal(${p.id})">
+              View
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function filterProducts(game, btn) {
+  currentFilter = game;
+  document.querySelectorAll(".filter-btn").forEach((b) => b.classList.remove("active"));
+  btn.classList.add("active");
+  renderProducts();
+}
+
+// ============ PRODUCT MODAL ============
+function openProductModal(id) {
+  const p = products.find((x) => x.id === id);
+  if (!p) return;
+  selectedProduct = p;
+
+  const validPrices = sortedPrices(p.prices).filter(([_, v]) => v > 0);
+  selectedDuration = validPrices.length > 0 ? validPrices[0][0] : Object.keys(p.prices)[0];
+
+  document.getElementById("modalImage").src = p.image;
+  document.getElementById("modalTitle").textContent = p.title;
+  document.getElementById("modalGame").textContent = p.game;
+  document.getElementById("modalRating").textContent = p.rating || 5.0;
+  document.getElementById("modalSales").textContent = `• ${p.sales || 0} sales`;
+  document.getElementById("modalDesc").textContent = p.description || "";
+
+  renderDurationOptions();
+  document.getElementById("productModal").classList.add("active");
+}
+
+function renderDurationOptions() {
+  const wrap = document.getElementById("durationOptions");
+  const p = selectedProduct;
+  const options = sortedPrices(p.prices).filter(([_, price]) => price > 0);
+
+  if (options.length === 0) {
+    wrap.innerHTML = `<p style="color:#71717a;grid-column:1/-1;">Koi price set nahi hai</p>`;
+    return;
+  }
+
+  wrap.innerHTML = options.map(([dur, price]) => {
+    const active = dur === selectedDuration ? "active" : "";
+    return `
+      <div class="duration-option ${active}" onclick="selectDuration('${dur}')">
+        <div class="duration-name">${dur}</div>
+        <div class="duration-price">₹${price}</div>
+      </div>
+    `;
+  }).join("");
+
+  document.getElementById("modalPrice").textContent = `₹${p.prices[selectedDuration]}`;
+}
+
+function selectDuration(dur) {
+  selectedDuration = dur;
+  renderDurationOptions();
+}
+
+function closeProductModal(e) {
+  if (e && e.target !== e.currentTarget) return;
+  document.getElementById("productModal").classList.remove("active");
+  selectedProduct = null;
+}
+
+function addSelectedToCart() {
+  if (!selectedProduct) return;
+  const item = {
+    ...selectedProduct,
+    selectedDuration,
+    price: selectedProduct.prices[selectedDuration],
+    quantity: 1,
+    cartId: `${selectedProduct.id}-${selectedDuration}`,
+  };
+
+  const existing = cart.find((i) => i.cartId === item.cartId);
+  if (existing) {
+    existing.quantity += 1;
+  } else {
+    cart.push(item);
+  }
+
+  saveCart();
+  updateCartUI();
+  closeProductModal();
+  showToast(`✅ ${selectedProduct.title} add ho gaya!`);
+}
+
+// ============ CART ============
+function toggleCart() {
+  document.getElementById("cartSidebar").classList.toggle("open");
+  document.getElementById("cartOverlay").classList.toggle("active");
+}
+
+function updateCartUI() {
+  const count = cart.reduce((s, i) => s + i.quantity, 0);
+  document.getElementById("cartCount").textContent = count;
+
+  const cartItems = document.getElementById("cartItems");
+  if (cart.length === 0) {
+    cartItems.innerHTML = `
+      <div class="empty-cart">
+        <div class="empty-icon">🛒</div>
+        <p>Cart khali hai</p>
+        <p class="empty-sub">Kuch mods add karo!</p>
+      </div>
+    `;
+  } else {
+    cartItems.innerHTML = cart.map((item) => `
+      <div class="cart-item">
+        <img src="${item.image}" alt="${item.title}">
+        <div class="cart-item-info">
+          <h4>${item.title}</h4>
+          <p>${item.selectedDuration} × ${item.quantity}</p>
+          <p class="cart-item-price">₹${item.price * item.quantity}</p>
+        </div>
+        <button class="remove-btn" type="button" onclick="removeFromCart('${item.cartId}')">✕</button>
+      </div>
+    `).join("");
+  }
+
+  const total = cart.reduce((s, i) => s + i.price * i.quantity, 0);
+  document.getElementById("cartTotal").textContent = `₹${total}`;
+}
+
+function removeFromCart(cartId) {
+  cart = cart.filter((i) => i.cartId !== cartId);
+  saveCart();
+  updateCartUI();
+}
+
+function saveCart() {
+  safeLS.setItem("cart", JSON.stringify(cart));
+}
+
+// ============ CHECKOUT ============
+function openCheckout() {
+  if (cart.length === 0) {
+    showToast("⚠️ Cart khali hai!");
+    return;
+  }
+  toggleCart();
+  const total = cart.reduce((s, i) => s + i.price * i.quantity, 0);
+  document.getElementById("qrImage").src = qrImage;
+  document.getElementById("qrAmount").textContent = `₹${total}`;
+  document.getElementById("checkoutModal").classList.add("active");
+}
+
+function closeCheckout(e) {
+  if (e && e.target !== e.currentTarget) return;
+  document.getElementById("checkoutModal").classList.remove("active");
+}
+
+async function placeOrder() {
+  if (!siteOpen && !isAdminLoggedIn) { showToast("🔒 Store abhi band hai"); return; }
+  const tgUsername = document.getElementById("tgUsername").value.trim();
+  const email = document.getElementById("custEmail").value.trim();
+  const note = document.getElementById("paymentNote").value.trim();
+
+  if (!tgUsername) {
+    showToast("⚠️ Telegram username daalo!");
+    return;
+  }
+  if (!tgUsername.startsWith("@")) {
+    showToast("⚠️ Username @ se shuru karo!");
+    return;
+  }
+
+  const total = cart.reduce((s, i) => s + i.price * i.quantity, 0);
+  const orderId = "ORD" + Date.now();
+
+  const order = {
+    orderId,
+    items: cart.map((i) => ({
+      title: i.title,
+      duration: i.selectedDuration,
+      price: i.price,
+      qty: i.quantity,
+    })),
+    total,
+    tgUsername,
+    email,
+    note,
+    date: new Date().toLocaleString("en-IN"),
+    timestamp: Date.now(),
+    status: "pending",
+    key: "",
+    downloadLink: "",
+    adminNote: "",
+  };
+
+  const savedShared = await saveNewOrder(order);
+  if (!savedShared) showToast("⚠️ Order sirf is device par save hua");
+
+  await sendTelegramNotification(order);
+
+  document.getElementById("successOrderId").textContent = orderId;
+  closeCheckout();
+
+  cart = [];
+  saveCart();
+  updateCartUI();
+
+  document.getElementById("successModal").classList.add("active");
+}
+
+function copyOrderId() {
+  const id = document.getElementById("successOrderId").textContent;
+  navigator.clipboard.writeText(id).then(() => {
+    showToast("✅ Order ID copy ho gaya!");
+  }).catch(() => {
+    showToast("📋 Manually copy karo: " + id);
+  });
+}
+
+function closeSuccess(e) {
+  if (e && e.target !== e.currentTarget) return;
+  document.getElementById("successModal").classList.remove("active");
+}
+
+// ============ TRACK ORDER ============
+function openTrackOrder() {
+  document.getElementById("trackResult").innerHTML = "";
+  document.getElementById("trackOrderId").value = "";
+  document.getElementById("trackModal").classList.add("active");
+}
+
+function closeTrackModal(e) {
+  if (e && e.target !== e.currentTarget) return;
+  document.getElementById("trackModal").classList.remove("active");
+}
+
+function trackOrder() {
+  const orderId = document.getElementById("trackOrderId").value.trim().toUpperCase();
+  const result = document.getElementById("trackResult");
+
+  if (!orderId) {
+    showToast("⚠️ Order ID daalo!");
+    return;
+  }
+
+  const orders = getOrders();
+  const order = orders.find((o) => o.orderId.toUpperCase() === orderId);
+
+  if (!order) {
+    result.innerHTML = `
+      <div class="track-card" style="border-color: rgba(239,68,68,0.3);">
+        <span class="track-status rejected">NOT FOUND</span>
+        <p style="color: var(--text-secondary); font-size: 13px;">Is Order ID ka koi order nahi mila. Sahi ID daalo.</p>
+      </div>
+    `;
+    return;
+  }
+
+  let keySection = "";
+  if (order.status === "completed" && order.key) {
+    keySection = `
+      <div class="key-box">
+        <label>🔑 Your License Key</label>
+        <div class="key-value">${order.key}</div>
+        ${order.downloadLink ? `<a href="${order.downloadLink}" target="_blank" class="key-download">⬇️ Download</a>` : ""}
+      </div>
+      ${order.adminNote ? `<p style="margin-top: 12px; font-size: 12px; color: var(--text-muted); text-align: center; font-style: italic;">"${order.adminNote}"</p>` : ""}
+    `;
+  } else if (order.status === "pending") {
+    keySection = `
+      <div style="background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.3); border-radius: 12px; padding: 14px; margin-top: 14px; text-align: center;">
+        <p style="color: var(--gold); font-size: 13px; font-weight: 600;">⏱️ Payment verification pending</p>
+        <p style="color: var(--text-muted); font-size: 12px; margin-top: 4px;">Admin 5-10 min mein key de dega</p>
+      </div>
+    `;
+  }
+
+  result.innerHTML = `
+    <div class="track-card">
+      <span class="track-status ${order.status}">${order.status.toUpperCase()}</span>
+      <div class="track-info">
+        <p><strong>Order ID:</strong> ${order.orderId}</p>
+        <p><strong>Date:</strong> ${order.date}</p>
+        <p><strong>Total:</strong> ₹${order.total}</p>
+        <p><strong>Items:</strong> ${order.items.map(i => `${i.title} (${i.duration})`).join(", ")}</p>
+      </div>
+      ${keySection}
+    </div>
+  `;
+}
+
+// ============ TELEGRAM ============
+async function sendTelegramNotification(order) {
+  const token = botSettings.botToken;
+  const chatId = botSettings.chatId;
+
+  const message = `
+🎮 *NEW ORDER — NAGESH PANEL STORE*
+
+🆔 *Order ID:* ${order.orderId}
+👤 *Customer TG:* ${order.tgUsername}
+📧 *Email:* ${order.email || "N/A"}
+📝 *Note:* ${order.note || "N/A"}
+
+📦 *Items:*
+${order.items.map((i) => `• ${i.title} (${i.duration}) × ${i.qty} = ₹${i.price * i.qty}`).join("\n")}
+
+💰 *Total: ₹${order.total}*
+🕐 *Time:* ${order.date}
+
+👉 Admin panel se key deliver karo
+  `.trim();
+
+  if (!token) {
+    console.log("⚠️ Bot token nahi hai");
+    console.log("Order:", order);
+    return;
+  }
+
+  try {
+    const url = `https://api.telegram.org/bot${token}/sendMessage`;
+    await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: message,
+        parse_mode: "Markdown",
+      }),
+    });
+  } catch (err) {
+    console.error("Telegram failed:", err);
+  }
+}
+
+async function sendKeyDeliveryNotification(order) {
+  const token = botSettings.botToken;
+  const chatId = botSettings.chatId;
+
+  const message = `
+✅ *KEY DELIVERED — NAGESH PANEL STORE*
+
+🆔 *Order ID:* ${order.orderId}
+👤 *Customer:* ${order.tgUsername}
+
+🔑 *Key:* \`${order.key}\`
+${order.downloadLink ? `⬇️ *Download:* ${order.downloadLink}` : ""}
+${order.adminNote ? `💬 *Note:* ${order.adminNote}` : ""}
+
+🕐 *Delivered:* ${new Date().toLocaleString("en-IN")}
+  `.trim();
+
+  if (!token) {
+    console.log("⚠️ Bot token nahi hai - key notification skip");
+    return;
+  }
+
+  try {
+    const url = `https://api.telegram.org/bot${token}/sendMessage`;
+    await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: message,
+        parse_mode: "Markdown",
+      }),
+    });
+  } catch (err) {
+    console.error("Telegram failed:", err);
+  }
+}
+
+// ============ ADMIN LOGIN ============
+function openAdminLogin() {
+  if (isAdminLoggedIn) {
+    openAdminPanel();
+    return;
+  }
+  document.getElementById("adminLoginModal").classList.add("active");
+}
+
+function closeAdminLogin(e) {
+  if (e && e.target !== e.currentTarget) return;
+  document.getElementById("adminLoginModal").classList.remove("active");
+}
+
+function adminLogin() {
+  const pass = document.getElementById("adminPass").value.trim();
+
+  if (pass === ADMIN_PASSWORD) {
+    isAdminLoggedIn = true;
+    applySite();
+    loadBotRemote();
+    startAdminOrders();
+    closeAdminLogin();
+    openAdminPanel();
+    showToast("✅ Login successful!");
+  } else {
+    showToast("❌ Galat password!");
+  }
+}
+
+function adminLogout() {
+  isAdminLoggedIn = false;
+  applySite();
+  stopAdminOrders();
+  document.getElementById("adminPanel").classList.remove("active");
+  showToast("👋 Logout ho gaya");
+}
+
+// ============ ADMIN PANEL ============
+function openAdminPanel() {
+  document.getElementById("adminPanel").classList.add("active");
+  renderAdminOrders();
+  renderAdminMods();
+  document.getElementById("adminQrPreview").src = qrImage;
+  document.getElementById("qrUrlInput").value = /^data:/.test(qrImage) ? "" : qrImage;
+  document.getElementById("botTokenInput").value = botSettings.botToken;
+  document.getElementById("chatIdInput").value = botSettings.chatId;
+}
+
+function switchAdminTab(tab, btn) {
+  document.querySelectorAll(".admin-nav-btn").forEach((b) => b.classList.remove("active"));
+  document.querySelectorAll(".admin-tab").forEach((t) => t.classList.remove("active"));
+  btn.classList.add("active");
+  document.getElementById(`tab-${tab}`).classList.add("active");
+}
+
+
+// ============ ADMIN HELPERS ============
+function escHtml(v) {
+  return String(v == null ? "" : v).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+function askConfirm(msg) {
+  return new Promise((resolve) => {
+    const ov = document.getElementById("cfmOverlay");
+    document.getElementById("cfmText").textContent = msg;
+    ov.classList.add("active");
+    const done = (v) => {
+      ov.classList.remove("active");
+      document.getElementById("cfmYes").onclick = null;
+      document.getElementById("cfmNo").onclick = null;
+      resolve(v);
+    };
+    document.getElementById("cfmYes").onclick = () => done(true);
+    document.getElementById("cfmNo").onclick = () => done(false);
+  });
+}
+
+async function deleteOrder(orderId) {
+  if (!isAdminLoggedIn) { showToast("🔒 Sirf admin kar sakta hai"); return; }
+  if (!(await askConfirm("Ye order permanently delete karna hai?"))) return;
+  const o = getOrders().find((x) => x.orderId === orderId);
+  if (!o) return;
+  try {
+    safeLS.setItem("orders", JSON.stringify(localOrders().filter((x) => x.orderId !== orderId)));
+  } catch (e) {}
+  if (ordersDB && o.uid) {
+    try {
+      const ref = ordersDB.doc("orders/" + o.uid);
+      const snap = await ref.get();
+      const rest = Object.assign({}, ((snap.exists ? snap.data() : {}) || {}).orders || {});
+      delete rest[orderId];
+      await ref.set({ uid: o.uid, orders: rest });
+    } catch (e) {
+      console.warn("order delete failed", e);
+      showToast("⚠️ Server se delete nahi hua (sirf owner kar sakta hai)");
+      return;
+    }
+  }
+  delete mineMap[orderId];
+  delete allMap[orderId];
+  renderAdminOrders();
+  showToast("🗑️ Order delete ho gaya!");
+}
+
+// ============ ADMIN: ORDERS ============
+function renderAdminOrders() {
+  const orders = getOrders();
+  const list = document.getElementById("adminOrdersList");
+
+  if (orders.length === 0) {
+    list.innerHTML = `<p class="admin-hint">Abhi koi order nahi hai. Customer order karega toh yahan dikhega.</p>`;
+    return;
+  }
+
+  list.innerHTML = orders.map((o) => {
+    let actionsHtml = "";
+
+    if (o.status === "pending") {
+      actionsHtml = `
+        <button class="order-btn btn-deliver" type="button" onclick="openDeliverKey('${o.orderId}')">
+          🔑 Deliver Key
+        </button>
+        <button class="order-btn btn-reject" type="button" onclick="rejectOrder('${o.orderId}')">
+          ❌ Reject
+        </button>
+      `;
+    } else if (o.status === "completed") {
+      actionsHtml = `
+        <div class="key-delivered-badge">
+          ✅ Key: ${escHtml(o.key) || "N/A"}
+        </div>
+        <button class="order-btn btn-view" type="button" onclick="openDeliverKey('${o.orderId}')">
+          ✏️ Edit Key
+        </button>
+      `;
+    } else if (o.status === "rejected") {
+      actionsHtml = `
+        <div class="key-delivered-badge" style="background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.3); color: var(--red);">
+          ❌ Rejected
+        </div>
+      `;
+    }
+
+    return `
+      <div class="admin-order-card">
+        <div class="order-card-header">
+          <span class="order-card-id">${o.orderId}</span>
+          <span class="order-card-date">${o.date}</span>
+        </div>
+        <div class="order-card-body">
+          <p><strong>Telegram:</strong> ${escHtml(o.tgUsername)}</p>
+          <p><strong>Email:</strong> ${escHtml(o.email) || "N/A"}</p>
+          <p><strong>Total:</strong> ₹${o.total}</p>
+          ${o.note ? `<p><strong>Note:</strong> ${escHtml(o.note)}</p>` : ""}
+        </div>
+        <div class="order-card-items">
+          ${o.items.map((i) => `<span>${escHtml(i.title)} (${escHtml(i.duration)}) × ${i.qty}</span>`).join("")}
+        </div>
+        <div class="order-card-actions">
+          ${actionsHtml}
+          <button class="order-btn btn-del" type="button" onclick="deleteOrder('${o.orderId}')">🗑️ Delete</button>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+// ============ DELIVER KEY ============
+function openDeliverKey(orderId) {
+  const orders = getOrders();
+  const order = orders.find((o) => o.orderId === orderId);
+  if (!order) return;
+
+  currentDeliverOrderId = orderId;
+
+  document.getElementById("deliverOrderInfo").innerHTML = `
+    <p><strong>Order ID:</strong> ${order.orderId}</p>
+    <p><strong>Customer TG:</strong> ${order.tgUsername}</p>
+    <p><strong>Total:</strong> ₹${order.total}</p>
+    <p><strong>Items:</strong> ${order.items.map(i => i.title).join(", ")}</p>
+  `;
+
+  document.getElementById("deliverKeyInput").value = order.key || "";
+  document.getElementById("deliverDownloadInput").value = order.downloadLink || "";
+  document.getElementById("deliverNoteInput").value = order.adminNote || "";
+
+  document.getElementById("deliverKeyModal").classList.add("active");
+}
+
+function closeDeliverKey(e) {
+  if (e && e.target !== e.currentTarget) return;
+  document.getElementById("deliverKeyModal").classList.remove("active");
+  currentDeliverOrderId = null;
+}
+
+async function deliverKeyAndApprove() {
+  if (!isAdminLoggedIn) { showToast("🔒 Sirf admin kar sakta hai"); return; }
+  if (!currentDeliverOrderId) return;
+
+  const key = document.getElementById("deliverKeyInput").value.trim();
+  const downloadLink = document.getElementById("deliverDownloadInput").value.trim();
+  const adminNote = document.getElementById("deliverNoteInput").value.trim();
+
+  if (!key) {
+    showToast("⚠️ Key daalo!");
+    return;
+  }
+
+  const updatedOrder = await patchOrder(currentDeliverOrderId, {
+    status: "completed", key, downloadLink, adminNote, deliveredAt: new Date().toLocaleString("en-IN"),
+  });
+  if (!updatedOrder) return;
+  await sendKeyDeliveryNotification(updatedOrder);
+
+  closeDeliverKey();
+  renderAdminOrders();
+  showToast("✅ Key deliver ho gayi!");
+}
+
+async function rejectOrder(orderId) {
+  if (!isAdminLoggedIn) { showToast("🔒 Sirf admin kar sakta hai"); return; }
+  if (!(await askConfirm("Pakka reject karna hai?"))) return;
+
+  const r = await patchOrder(orderId, { status: "rejected" });
+  if (!r) return;
+  renderAdminOrders();
+  showToast("❌ Order reject ho gaya!");
+}
+
+// ============ ADMIN: MODS ============
+function renderAdminMods() {
+  const list = document.getElementById("adminModsList");
+  if (products.length === 0) {
+    list.innerHTML = `<p class="admin-hint">Koi mod nahi hai. Add karo!</p>`;
+    return;
+  }
+
+  list.innerHTML = products.map((p) => `
+    <div class="admin-mod-item">
+      <img src="${p.image}" alt="${escHtml(p.title)}">
+      <div class="admin-mod-info">
+        <h4>${escHtml(p.title)}</h4>
+        <p>${escHtml(p.game)} • ★ ${p.rating || 5.0}</p>
+        <div class="admin-mod-prices">
+          ${sortedPrices(p.prices).map(([d, pr]) => pr ? `<span>${d}: ₹${pr}</span>` : "").join("")}
+        </div>
+      </div>
+      <div class="admin-mod-actions">
+        <button class="edit-btn" type="button" onclick="editMod(${p.id})">✏️</button>
+        <button class="delete-btn" type="button" onclick="deleteMod(${p.id})">🗑️</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+function openAddModModal() {
+  if (!isAdminLoggedIn) { showToast("🔒 Sirf admin kar sakta hai"); return; }
+  editingModId = null;
+  uploadedImageBase64 = "";
+
+  document.getElementById("modModalTitle").textContent = "Add New Mod";
+  document.getElementById("saveModBtnText").textContent = "Save Mod";
+  document.getElementById("modTitle").value = "";
+  document.getElementById("modGame").value = "Minecraft";
+  document.getElementById("modDesc").value = "";
+  DURATIONS.forEach((d, i) => { document.getElementById("dprice" + i).value = ""; });
+
+  document.getElementById("modImageFile").value = "";
+  document.getElementById("previewImg").src = "";
+  document.getElementById("uploadPlaceholder").style.display = "block";
+  document.getElementById("uploadPreview").style.display = "none";
+
+  document.getElementById("addModModal").classList.add("active");
+}
+
+function editMod(id) {
+  if (!isAdminLoggedIn) { showToast("🔒 Sirf admin kar sakta hai"); return; }
+  const p = products.find((x) => x.id === id);
+  if (!p) return;
+
+  editingModId = id;
+  uploadedImageBase64 = p.image;
+
+  document.getElementById("modModalTitle").textContent = "Edit Mod";
+  document.getElementById("saveModBtnText").textContent = "Update Mod";
+  document.getElementById("modTitle").value = p.title;
+  document.getElementById("modGame").value = p.game;
+  document.getElementById("modDesc").value = p.description || "";
+  DURATIONS.forEach((d, i) => { document.getElementById("dprice" + i).value = (p.prices || {})[d] || ""; });
+
+  document.getElementById("previewImg").src = p.image;
+  document.getElementById("uploadPlaceholder").style.display = "none";
+  document.getElementById("uploadPreview").style.display = "block";
+
+  document.getElementById("addModModal").classList.add("active");
+}
+
+function closeAddMod(e) {
+  if (e && e.target !== e.currentTarget) return;
+  document.getElementById("addModModal").classList.remove("active");
+  uploadedImageBase64 = "";
+}
+
+function saveMod() {
+  if (!isAdminLoggedIn) { showToast("🔒 Sirf admin kar sakta hai"); return; }
+  const title = document.getElementById("modTitle").value.trim();
+  const game = document.getElementById("modGame").value;
+  const description = document.getElementById("modDesc").value.trim();
+  const prices = {};
+  DURATIONS.forEach((d, i) => { prices[d] = Math.max(0, +document.getElementById("dprice" + i).value || 0); });
+
+  if (!title) { showToast("⚠️ Title daalo!"); return; }
+  if (!uploadedImageBase64) { showToast("⚠️ Image upload karo!"); return; }
+  if (!Object.values(prices).some((p) => p > 0)) {
+    showToast("⚠️ Kam se kam ek price daalo!");
+    return;
+  }
+
+  let savedProduct = null;
+  if (editingModId) {
+    products = products.map((p) =>
+      p.id === editingModId
+        ? { ...p, title, game, image: uploadedImageBase64, description, prices }
+        : p
+    );
+    savedProduct = products.find((p) => p.id === editingModId);
+    showToast("✅ Mod update ho gaya!");
+  } else {
+    savedProduct = {
+      id: Date.now(),
+      title,
+      game,
+      image: uploadedImageBase64,
+      description,
+      rating: 5.0,
+      sales: 0,
+      prices,
+    };
+    products.push(savedProduct);
+    showToast("✅ Naya mod add ho gaya!");
+  }
+
+  try {
+    safeLS.setItem("products", JSON.stringify(products));
+  } catch (err) {
+    showToast("⚠️ Storage full! Purane mods delete karo.");
+    return;
+  }
+
+  saveProductRemote(savedProduct);
+  renderAdminMods();
+  renderFilters();
+  renderProducts();
+  closeAddMod();
+}
+
+async function deleteMod(id) {
+  if (!isAdminLoggedIn) { showToast("🔒 Sirf admin kar sakta hai"); return; }
+  if (!(await askConfirm("Ye mod hamesha ke liye delete karna hai?"))) return;
+  products = products.filter((p) => p.id !== id);
+  safeLS.setItem("products", JSON.stringify(products));
+  deleteProductRemote(id);
+  renderAdminMods();
+  renderFilters();
+  renderProducts();
+  showToast("🗑️ Mod delete ho gaya!");
+}
+
+// ============ ADMIN: QR ============
+function updateQR() {
+  if (!isAdminLoggedIn) { showToast("🔒 Sirf admin kar sakta hai"); return; }
+  const url = document.getElementById("qrUrlInput").value.trim();
+  const fileInput = document.getElementById("qrFileInput");
+
+  if (fileInput.files && fileInput.files[0]) {
+    const reader = new FileReader();
+    reader.onerror = function () { showToast("⚠️ QR file read nahi hui"); };
+    reader.onload = async function (e) {
+      qrImage = await downscaleDataUrl(e.target.result, 700, 0.92);
+      safeLS.setItem("qrImage", qrImage);
+      document.getElementById("adminQrPreview").src = qrImage;
+      saveQRRemote(qrImage);
+      fileInput.value = "";
+      showToast("✅ QR update ho gaya!");
+    };
+    reader.readAsDataURL(fileInput.files[0]);
+    return;
+  }
+
+  if (!url) { showToast("⚠️ QR URL ya image daalo!"); return; }
+  qrImage = url;
+  safeLS.setItem("qrImage", url);
+  saveQRRemote(url);
+  document.getElementById("adminQrPreview").src = url;
+  showToast("✅ QR update ho gaya!");
+}
+
+
+// ============ ADMIN: SETTINGS ============
+async function loadBotRemote() {
+  if (!ordersDB) return;
+  try {
+    const snap = await ordersDB.doc("admin/bot").get();
+    if (snap.exists) {
+      const d = snap.data() || {};
+      botSettings.botToken = d.botToken || botSettings.botToken;
+      botSettings.chatId = d.chatId || botSettings.chatId;
+      safeLS.setItem("botSettings", JSON.stringify(botSettings));
+      document.getElementById("botTokenInput").value = botSettings.botToken;
+      document.getElementById("chatIdInput").value = botSettings.chatId;
+    }
+  } catch (e) { console.warn("bot load failed", e); }
+}
+
+function saveBotSettings() {
+  if (!isAdminLoggedIn) { showToast("🔒 Sirf admin kar sakta hai"); return; }
+  botSettings.botToken = document.getElementById("botTokenInput").value.trim();
+  botSettings.chatId = document.getElementById("chatIdInput").value.trim();
+  safeLS.setItem("botSettings", JSON.stringify(botSettings));
+  if (ordersDB) {
+    ordersDB.doc("admin/bot").set({ botToken: botSettings.botToken, chatId: botSettings.chatId }).catch(function (e) {
+      console.warn("bot save failed", e);
+    });
+  }
+  showToast("✅ Bot settings save!");
+}
+
+// ============ TOAST ============
+function showToast(msg) {
+  const toast = document.getElementById("toast");
+  document.getElementById("toastMsg").textContent = msg;
+  toast.classList.add("show");
+  clearTimeout(window.toastTimer);
+  window.toastTimer = setTimeout(() => toast.classList.remove("show"), 3000);
+}
+
+// ============ INIT ============
+document.addEventListener("DOMContentLoaded", function () {
+  runLoader();
+  buildDurationInputs();
+  applySite();
+  initProductsDB();
+  initSharedDB();
+
+  const addBtn = document.getElementById("addModBtn");
+  if (addBtn) {
+    addBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      openAddModModal();
+    });
+  }
+
+  const qrFile = document.getElementById("qrFileInput");
+  if (qrFile) qrFile.addEventListener("change", function () { if (qrFile.files && qrFile.files[0]) updateQR(); });
+
+  const imgInput = document.getElementById("modImageFile");
+  if (imgInput) {
+    imgInput.addEventListener("change", handleImageUpload);
+  }
+
+  renderFilters();
+  renderProducts();
+  updateCartUI();
+  observeReveal();
+});
+</script>
+</body>
+</html>
